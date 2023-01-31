@@ -1,0 +1,50 @@
+.solid {
+	border: 1px solid red;
+}
+.order-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 40px 0;
+}
+.order-placed {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 28px;
+	text-align: center;
+	letter-spacing: 0.4px;
+	color: #2c2e2f;
+	margin: 10px 0;
+}
+.order-info {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	text-align: center;
+	letter-spacing: 0.4px;
+	color: #2c2e2f;
+}
+
+.fees-container {
+	width: 360px;
+	height: 96px;
+	background: #f7f7f7;
+	padding: 20px;
+}
+.fees-description {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.fees-description p {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 150%;
+	letter-spacing: 0.4px;
+
+	color: #2c2e2f;
+}
