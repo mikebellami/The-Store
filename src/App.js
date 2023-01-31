@@ -1,16 +1,34 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Outlet,
+	Route,
+	Routes,
+} from "react-router-dom";
 import "./App.css";
-import {Home} from "./page";
+import { Footer, Header } from "./component";
+import { Home, Product } from "./page";
 
 function App() {
 	return (
 		<Router>
 			<Routes>
-        <Route index element={<Home />} />
-      </Routes>
+				<Route element={<AppWrapper />}>
+					<Route index element={<Product />} />
+				</Route>
+			</Routes>
 		</Router>
 	);
 }
+
+const AppWrapper = () => {
+	return (
+		<div className="app-wrapper">
+			<Header />
+			<Outlet />
+			<Footer />
+		</div>
+	);
+};
 
 export default App;

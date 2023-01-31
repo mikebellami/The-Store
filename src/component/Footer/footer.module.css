@@ -1,0 +1,32 @@
+.copyright {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 19px;
+    letter-spacing: 0.4px;
+    color: #2C2E2F;
+}
+
+.navLinks {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+}
+
+.navlink {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    color: #2C2E2F;
+}
+
+.link {
+    color: inherit;
+}
+
+.bt {
+    border-top: 1px solid #E9E3DB;
+    padding-top: 20px;
+}

@@ -1,0 +1,135 @@
+.page {
+    padding-top: 40px;
+}
+
+.productImageWrapper {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.productImage {
+    width: 100%;
+    max-height: 600px;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.productImagePreview {
+    width: 119px;
+    aspect-ratio: 1;
+    border: 2px solid #5E60CE;
+    border-radius: 5px;
+}
+
+.slickDots {
+    display: flex !important;
+    gap: 2%;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+    margin: 20px 0 0;
+    list-style: none;
+}
+
+.slickDots li {
+    position: relative;
+    display: inline-block;
+    min-width: 25px;
+    max-width: 70px;
+    aspect-ratio: 1;
+    border: 2px solid #5E60CE;
+    border-radius: 5px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.productName {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2.4rem;
+    line-height: 2.9rem;
+    letter-spacing: 0.4px;
+    color: #495057;
+    margin-bottom: 15px;
+}
+
+.productPrice {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 3.5rem;
+    line-height: 4.2rem;
+    letter-spacing: 0.4px;
+    color: #495057;
+    margin-bottom: 40px;
+}
+
+.productQuantity {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #495057;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 32px;
+    background: #5E60CE;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    color: white;
+    margin-block: 30px 20px;
+    width: 50%;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.note {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 17px;
+    margin-bottom: 10px;
+}
+
+.socialIcons {
+    display: flex;
+    gap: 10px;
+}
+
+.socialIcons svg {
+    width: 35px;
+    aspect-ratio: 1;
+    cursor: pointer;
+}
+
+.details {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 1.8rem;
+    line-height: 20px;
+    color: #495057;
+    margin-top: 25px;
+}
+
+.productDetails {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 24px;
+    color: #18191F;
+}
+
+@media screen and (max-width: 768px) {
+    .productName {
+        margin-block: 20px 15px;
+    }
+}
