@@ -109,6 +109,7 @@ h6 {
     padding: 20px 70px;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 @media screen and (max-width: 1024px) {
