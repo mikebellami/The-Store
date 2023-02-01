@@ -1,7 +1,7 @@
 import React from "react";
 import { CartSVG } from "../../assets";
 import "./productCard.css"
-const ProductCard = ({image}) => {
+const ProductCard = ({ image }) => {
 	return (
 		<>
 			<div className="product-card">
@@ -17,7 +17,10 @@ const ProductCard = ({image}) => {
 				</div>
 				<div className="product-card-body">
 					<p className="product-name">Bleu Perfume</p>
-					<p className="product-price">NGN8,500</p>
+					<p className="product-price">{new Intl.NumberFormat("en-GB", {
+						style: "currency",
+						currency: "NGN",
+					}).format(8500)}</p>
 				</div>
 			</div>
 		</>

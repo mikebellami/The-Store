@@ -1,5 +1,5 @@
 import Home from "./home";
 import Product from "./Product";
-import Comfirmation from "./comfirmation/Comfirmation";
+import Confirmation from "./confirmation/Confirmation";
 
-export { Home, Product, Comfirmation };
+export { Home, Product, Confirmation };

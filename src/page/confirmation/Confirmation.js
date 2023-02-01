@@ -1,8 +1,8 @@
 import React from "react";
-import "./comfirmation.css";
-import { Checked } from "../../assets";
+import "./confirmation.css";
+import { Checked, Product2 } from "../../assets";
 
-const Comfirmation = () => {
+const Confirmation = () => {
 	return (
 		<>
 			<div className="container solid d-flex align-item-center justify-content-center">
@@ -14,9 +14,23 @@ const Comfirmation = () => {
 						<br /> from your account
 					</p>
 
-					<div>
-						<div className=""></div>
+					{/* <div className="solid w-100 p-4"> */}
+					<div className="order-items">
+						<div className="order-items-img" >
+							<img src={Product2} alt="product" />
+						</div>
+						<div className="order-item-details">
+							<p className="order-item-name">Fancy Dress Inc.</p>
+							<div className="d-flex justify-content-between align-items-end">
+								<p className="order-item-qty">Qty <br /><span className="">x 2</span></p>
+								<p className="order-item-price">{new Intl.NumberFormat("en-US", {
+									style: "currency",
+									currency: "USD",
+								}).format(15)}</p>
+							</div>
+						</div>
 					</div>
+					{/* </div> */}
 
 					<span className="hr"></span>
 
@@ -35,11 +49,11 @@ const Comfirmation = () => {
 
 					<div className="delivery-container">
 						<p className="delivery-title">Delivery Address</p>
-                        <span className="hr"></span>
+						<span className="hr" ></span>
 						<p className="delivery-body">
 							123 East North Street, South Bend,
-						 West Coast,<br/>Main City,<br/> Central<br/>
-						 <strong>State Phone: (+123-8293-8922-0)</strong>
+							West Coast,<br />Main City,<br /> Central<br />
+							<strong>State Phone: (+123-8293-8922-0)</strong>
 						</p>
 					</div>
 					<span className="hr"></span>
@@ -50,4 +64,4 @@ const Comfirmation = () => {
 	);
 };
 
-export default Comfirmation;
+export default Confirmation;
