@@ -1,6 +1,6 @@
 import React from "react";
-import { Bag } from "../assets";
-import "./component.css"
+import { CartSVG } from "../../assets";
+import "./productCard.css"
 const ProductCard = ({image}) => {
 	return (
 		<>
@@ -10,7 +10,7 @@ const ProductCard = ({image}) => {
 					style={{ backgroundImage: `url(${image})` }}
 				>
 					<div className="add-cart">
-						Add to Cart <Bag className="cart-icon" />
+						Add to Cart <CartSVG className="cart-icon" />
 					</div>
 
 					<div></div>
