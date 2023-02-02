@@ -1,5 +1,6 @@
 import Home from "./home";
 import Product from "./Product";
-import Confirmation from "./confirmation/Confirmation";
+import Confirmation from "./confirmation";
+import Account from "./account";
 
-export { Home, Product, Confirmation };
+export { Home, Product, Confirmation, Account };
