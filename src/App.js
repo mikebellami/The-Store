@@ -4,6 +4,7 @@ import {
 	Outlet,
 	Route,
 	Routes,
+	useLocation,
 } from "react-router-dom";
 import "./App.css";
 import { CartIcon, Footer, Header } from "./component";
@@ -27,8 +28,10 @@ function App() {
 }
 
 const AppWrapper = () => {
+	const location = useLocation();
+
 	return (
-		<div className="app-wrapper">
+		<div className={`app-wrapper ${location.pathname === "/" ? "p-0" : ""}`}>
 			<Header />
 			<CartIcon />
 			<Outlet />

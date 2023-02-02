@@ -106,7 +106,7 @@ h6 {
 
 .app-wrapper {
     min-height: 100vh;
-    padding: 20px 70px;
+    padding: 0 70px 20px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -114,6 +114,15 @@ h6 {
 
 .pointy-cursor {
     cursor: pointer;
+}
+
+.full-width {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-inline: -50vw;
+    z-index: -1;
 }
 
 @media screen and (max-width: 1024px) {
