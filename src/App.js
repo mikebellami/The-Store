@@ -9,7 +9,8 @@ import {
 import "./App.css";
 import { CartIcon, Footer, Header } from "./component";
 import CartProvider from "./context/cartContext";
-import { Cart, Home, Product } from "./page";
+import { Home, Product, Confirmation, Account,Cart } from "./page";
+
 
 function App() {
 	return (
@@ -19,6 +20,8 @@ function App() {
 					<Route element={<AppWrapper />}>
 						<Route index element={<Home />} />
 						<Route path="/product/:id" element={<Product />} />
+						<Route path="/confirmation" element={<Confirmation />} />
+						<Route path="/account" element={<Account />} />	
 						<Route path="/cart" element={<Cart />} />
 					</Route>
 				</Routes>

@@ -1,5 +1,7 @@
 import Bg from "./img/bg.png"
-import {ReactComponent as Bag} from "./img/shopping-bag.svg"
+import { ReactComponent as CartSVG } from "./img/svg/shopping-bag.svg"
+import { ReactComponent as Checked } from "./img/svg/checked.svg"
 import Product from "./img/product.png"
+import Product2 from "./img/product2.png"
 
-export {Bg, Product,Bag}
+export { Bg, Product2, Product, CartSVG, Checked }

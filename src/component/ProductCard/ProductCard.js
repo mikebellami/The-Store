@@ -1,7 +1,7 @@
 import React from "react";
-import { Bag } from "../assets";
-import "./component.css"
-const ProductCard = ({image}) => {
+import { CartSVG } from "../../assets";
+import "./productCard.css"
+const ProductCard = ({ image }) => {
 	return (
 		<>
 			<div className="product-card">
@@ -10,14 +10,17 @@ const ProductCard = ({image}) => {
 					style={{ backgroundImage: `url(${image})` }}
 				>
 					<div className="add-cart">
-						Add to Cart <Bag className="cart-icon" />
+						Add to Cart <CartSVG className="cart-icon" />
 					</div>
 
 					<div></div>
 				</div>
 				<div className="product-card-body">
 					<p className="product-name">Bleu Perfume</p>
-					<p className="product-price">NGN8,500</p>
+					<p className="product-price">{new Intl.NumberFormat("en-GB", {
+						style: "currency",
+						currency: "NGN",
+					}).format(8500)}</p>
 				</div>
 			</div>
 		</>
