@@ -6,7 +6,7 @@ import { ReactComponent as ShoppingBagIcon } from "../../assets/img/svg/shopping
 
 const Footer = () => {
 	return (
-		<div className="mt-auto">
+		<div className="container">
 			<div
 				className={`${styles.bt} d-flex justify-content-center align-items-center mt-5`}
 			>

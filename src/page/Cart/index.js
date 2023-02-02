@@ -4,7 +4,7 @@ import styles from "./cart.module.css";
 
 const Cart = () => {
 	return (
-		<div>
+		<div className="container">
 			<div className="row">
 				<div className="col-md-5">
 					<h3 className={styles.heading}>Shopping cart</h3>

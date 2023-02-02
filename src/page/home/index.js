@@ -38,8 +38,8 @@ const Home = () => {
 				<div className="products-container">
 					<div className="products-header">
 						<h2 className="products-title">Explore Products</h2>
-						<h2 className="product-feature">
-							Featured <SlArrowDown className="ml-2 product-feature-icon" />
+						<h2 className=" product-feature">
+							Featured <span><SlArrowDown className="ml-2 product-feature-icon" /></span>
 						</h2>
 					</div>
 					<div className="row">

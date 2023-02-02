@@ -9,7 +9,7 @@ import {
 import "./App.css";
 import { CartIcon, Footer, Header } from "./component";
 import CartProvider from "./context/cartContext";
-import { Home, Product, Confirmation, Account,Cart } from "./page";
+import { Home, Product, Confirmation, Account, Cart } from "./page";
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
 						<Route index element={<Home />} />
 						<Route path="/product/:id" element={<Product />} />
 						<Route path="/confirmation" element={<Confirmation />} />
-						<Route path="/account" element={<Account />} />	
+						<Route path="/account" element={<Account />} />
 						<Route path="/cart" element={<Cart />} />
 					</Route>
 				</Routes>
@@ -34,12 +34,14 @@ const AppWrapper = () => {
 	const location = useLocation();
 
 	return (
-		<div className={`app-wrapper ${location.pathname === "/" ? "p-0" : ""}`}>
+
+		<div className="app-wrpper" >
 			<Header />
 			<CartIcon />
 			<Outlet />
 			<Footer />
 		</div>
+
 	);
 };
 

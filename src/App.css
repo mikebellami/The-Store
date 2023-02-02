@@ -1,15 +1,15 @@
 :root {
-    --primary-color: #5E60CE;
-    --black-color: #495057;
+  --primary-color: #5e60ce;
+  --black-color: #495057;
 }
 
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
 
 textarea:hover,
@@ -25,9 +25,9 @@ label:focus,
 .btn:active,
 .btn.active,
 select:focus {
-    outline: 0px !important;
-    -webkit-appearance: none;
-    box-shadow: none !important;
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
 }
 
 /*
@@ -35,20 +35,20 @@ select:focus {
 */
 html,
 body {
-    height: 100%;
-    font-size: 62.5%;
+  height: 100%;
+  font-size: 62.5%;
 }
 
 @media screen and (max-width: 768px) {
-    html {
-        font-size: 56.25%;
-    }
+  html {
+    font-size: 56.25%;
+  }
 }
 
 @media screen and (max-width: 456px) {
-    html {
-        font-size: 50%;
-    }
+  html {
+    font-size: 50%;
+  }
 }
 
 /*
@@ -57,8 +57,8 @@ body {
   5. Improve text rendering
 */
 body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 /*
@@ -69,8 +69,8 @@ picture,
 video,
 canvas,
 svg {
-    display: block;
-    max-width: 100%;
+  display: block;
+  max-width: 100%;
 }
 
 /*
@@ -80,7 +80,7 @@ input,
 button,
 textarea,
 select {
-    font: inherit;
+  font: inherit;
 }
 
 /*
@@ -93,7 +93,7 @@ h3,
 h4,
 h5,
 h6 {
-    overflow-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 /*
@@ -101,32 +101,32 @@ h6 {
 */
 #root,
 #__next {
-    isolation: isolate;
+  isolation: isolate;
 }
 
 .app-wrapper {
-    min-height: 100vh;
-    padding: 0 70px 20px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  /* min-height: 100vh; */
+  /* padding: 0 70px 20px; */
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .pointy-cursor {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .full-width {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-inline: -50vw;
-    z-index: -1;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-inline: -50vw;
+  z-index: -1;
 }
 
 @media screen and (max-width: 1024px) {
-    .app-wrapper {
-        padding: 20px 20px;
-    }
+  .app-wrapper {
+    padding: 20px 20px;
+  }
 }
