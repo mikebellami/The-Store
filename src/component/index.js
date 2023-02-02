@@ -6,6 +6,7 @@ import ProductCard from "./ProductCard/ProductCard";
 import CartIcon from "./CartIcon";
 import Card from "./Card";
 import ShoppingCartItem from "./ShoppingCartItem";
+import CustomInput, { CustomRadio } from "./CustomInput";
 
 export {
 	Header,
@@ -16,4 +17,6 @@ export {
 	CartIcon,
 	Card,
 	ShoppingCartItem,
+	CustomInput,
+	CustomRadio,
 };
