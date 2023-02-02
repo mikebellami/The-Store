@@ -6,8 +6,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    aspect-ratio: 1;
+    padding: 2px 10px;
+    /* aspect-ratio: 1; */
     background: #FFFFFF;
     border: 1px solid #D0D5DD;
 }
@@ -21,14 +21,15 @@
 }
 
 .quantityInput {
-    width: 40px;
+    padding: 2px 10px;
+    max-width: 40px;
     aspect-ratio: 1;
     text-align: center;
     background: #FFFFFF;
     font-style: normal;
     font-weight: 500;
     font-size: 1.4rem;
-    line-height: 20px;
+    line-height: 2rem;
     color: #495057;
     border: 1px solid #D0D5DD;
 }

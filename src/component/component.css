@@ -1,63 +1,66 @@
 /* product card */
 .product-card {
-	margin: 20px 0;
-	/* max-height: 350px; */
-	height: auto;
-	position: relative;
-	cursor: pointer;
+    margin: 20px 0;
+    /* max-height: 350px; */
+    height: auto;
+    position: relative;
+    cursor: pointer;
 }
 
 .product-card-header {
-	aspect-ratio: auto 208 / 208;
-	background-size: cover;
-	background-repeat: no-repeat;
-	border-radius: 10px;
-	display: flex;
-	align-items: flex-end;
+    aspect-ratio: auto 208 / 208;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-end;
 }
 
 .product-card-body {
-	padding: 30px 0;
+    padding: 30px 0;
 }
+
 .product-name {
-	font-style: normal;
-	font-weight: 400;
-	font-size: 18px;
-	line-height: 22px;
-	letter-spacing: 0.4px;
-	color: var(--black-color);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    letter-spacing: 0.4px;
+    color: var(--black-color);
 }
+
 .product-price {
-	font-style: normal;
-	font-weight: 800;
-	font-size: 20px;
-	line-height: 24px;
-	letter-spacing: 0.4px;
-	color: var(--black-color);
+    font-style: normal;
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 2.4rem;
+    letter-spacing: 0.4px;
+    color: var(--black-color);
 }
 
 .add-cart {
-	color: #ffffff;
-	background: #fe8f01;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 52px;
-	width: 100%;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 16px;
-	line-height: 24px;
+    color: #ffffff;
+    background: #fe8f01;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 52px;
+    width: 100%;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
     transform: translateY(50px);
     opacity: 0;
     transition: 1s;
 }
+
 .cart-icon {
-	margin-left: 10px;
-	width: 26px;
+    margin-left: 10px;
+    width: 26px;
 }
 
-.product-card:hover .add-cart{
+.product-card:hover .add-cart {
     transition: 1s;
     transform: translateY(0px);
     opacity: 1;
