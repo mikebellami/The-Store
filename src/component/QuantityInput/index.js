@@ -6,11 +6,11 @@ const QuantityInput = () => {
 	return (
 		<div className={styles.quantityWrapper}>
 			<button className={`${styles.quantityBtn} ${styles.left}`}>
-				<BiMinus size={22} />
+				<BiMinus size={10} />
 			</button>
 			<input type="text" className={styles.quantityInput} value={10} />
 			<button className={`${styles.quantityBtn} ${styles.right}`}>
-				<BiPlus size={22} />
+				<BiPlus size={10} />
 			</button>
 		</div>
 	);

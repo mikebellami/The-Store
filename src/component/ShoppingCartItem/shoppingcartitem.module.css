@@ -1,0 +1,24 @@
+.productImage {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.productName {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    letter-spacing: 0.4px;
+    color: #495057;
+}
+
+.productPrice {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 2rem;
+    letter-spacing: 0.4px;
+    color: #495057;
+    margin: 0;
+}

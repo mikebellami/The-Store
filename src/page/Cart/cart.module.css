@@ -1,0 +1,52 @@
+.heading {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 2.9rem;
+    /* identical to box height */
+    letter-spacing: 0.4px;
+    color: #495057;
+    margin-block: 40px 30px;
+}
+
+.summaryWrapper {
+    border: 1px solid rgba(24, 25, 31, 0.35);
+    border-radius: 4px;
+    padding: 25px;
+}
+
+.summaryRow {
+    border-bottom: 1px solid rgba(24, 25, 31, 0.35);
+    display: flex;
+    justify-content: space-between;
+    padding-block: 25px 10px;
+}
+
+.summaryRow p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+}
+
+.summaryRow p:first-of-type {
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #5E60CE;
+    border: 1px solid #5E60CE;
+    border-radius: 10px;
+    padding: 18px 40px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    color: #FFFFFF;
+    margin-top: 25px;
+    width: 100%;
+}

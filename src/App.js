@@ -8,7 +8,8 @@ import {
 import "./App.css";
 import { CartIcon, Footer, Header } from "./component";
 import CartProvider from "./context/cartContext";
-import { Home, Product, Confirmation, Account } from "./page";
+import { Home, Product, Confirmation, Account,Cart } from "./page";
+
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 						<Route path="/product/:id" element={<Product />} />
 						<Route path="/confirmation" element={<Confirmation />} />
 						<Route path="/account" element={<Account />} />	
+						<Route path="/cart" element={<Cart />} />
 					</Route>
 				</Routes>
 			</Router>

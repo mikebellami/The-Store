@@ -5,6 +5,7 @@ import QuantityInput from "./QuantityInput";
 import ProductCard from "./ProductCard/ProductCard";
 import CartIcon from "./CartIcon";
 import Card from "./Card";
+import ShoppingCartItem from "./ShoppingCartItem";
 
 export {
 	Header,
@@ -14,4 +15,5 @@ export {
 	ProductCard,
 	CartIcon,
 	Card,
+	ShoppingCartItem,
 };
