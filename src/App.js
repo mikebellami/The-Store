@@ -11,11 +11,10 @@ import { CartIcon, Footer, Header } from "./component";
 import CartProvider from "./context/cartContext";
 import { Home, Product, Confirmation, Account, Cart } from "./page";
 
-
 function App() {
 	return (
 		<CartProvider>
-			<Router>
+			<Router basename="/store-web">
 				<Routes>
 					<Route element={<AppWrapper />}>
 						<Route index element={<Home />} />
@@ -34,14 +33,12 @@ const AppWrapper = () => {
 	const location = useLocation();
 
 	return (
-
-		<div className="app-wrpper" >
+		<div className="app-wrpper">
 			<Header />
 			<CartIcon />
 			<Outlet />
 			<Footer />
 		</div>
-
 	);
 };
 
