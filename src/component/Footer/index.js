@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./footer.module.css";
 import { ReactComponent as ProfileIcon } from "../../assets/img/profile.svg";
-import { ReactComponent as ShoppingBagIcon } from "../../assets/img/shopping-bag.svg";
+import { ReactComponent as ShoppingBagIcon } from "../../assets/img/svg/shopping-bag.svg";
 
 const Footer = () => {
 	return (

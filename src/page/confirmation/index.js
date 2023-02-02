@@ -14,7 +14,6 @@ const Confirmation = () => {
 						<br /> from your account
 					</p>
 
-					{/* <div className="solid w-100 p-4"> */}
 					<div className="order-items">
 						<div className="order-items-img">
 							<img src={Product2} alt="product" />
@@ -35,9 +34,9 @@ const Confirmation = () => {
 							</div>
 						</div>
 					</div>
-					{/* </div> */}
 
-					<span className="hr"></span>
+
+					<div className="hr"></div>
 
 					<div className="fees-container ">
 						<div className="fees-description">
@@ -62,9 +61,12 @@ const Confirmation = () => {
 						</div>
 					</div>
 
+					<p className="delivery-title">
+						Delivery Address
+					</p>
+
+					<div className="hr"></div>
 					<div className="delivery-container">
-						<p className="delivery-title">Delivery Address</p>
-						<div className="hr"></div>
 						<p className="delivery-body">
 							123 East North Street, South Bend, West Coast,
 							<br />
