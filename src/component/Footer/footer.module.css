@@ -10,7 +10,7 @@
 .navLinks {
     list-style: none;
     display: flex;
-    gap: 10px;
+    gap: 20px;
 }
 
 .navlink {
@@ -31,6 +31,7 @@
 
 .link:hover {
     text-decoration: none;
+    color: var(--primary-color);
 }
 
 .link svg {
@@ -38,11 +39,26 @@
     height: 25px;
 }
 
+
 .link svg path {
     stroke: #2C2E2F;
 }
-
+.link svg path:hover {
+    stroke: var(--primary-color);
+}
 .bt {
     border-top: 1px solid #E9E3DB;
     padding-top: 20px;
+}
+.footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media screen and (max-width: 425px) {
+    .footer{
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

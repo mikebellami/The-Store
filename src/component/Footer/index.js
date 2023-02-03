@@ -19,15 +19,15 @@ const Footer = () => {
 					</li>
 					<li className={styles.navlink}>
 						<Link to="/cart" className={styles.link}>
-							<ShoppingBagIcon />
+							<ShoppingBagIcon  />
 							<p>Shopping Bag</p>
 						</Link>
 					</li>
 				</ul>
 			</div>
-			<div
-				className={`${styles.bt} d-flex justify-content-between align-items-center`}
-			>
+			<div className={styles.bt}>
+				<div className={styles.footer}>
+
 				<p className={styles.copyright}>Copyright © 2023 Peppa.io</p>
 				<ul className={styles.navLinks}>
 					<li className={styles.navlink}>
@@ -41,6 +41,7 @@ const Footer = () => {
 						</a>
 					</li>
 				</ul>
+				</div>
 			</div>
 		</div>
 	);
