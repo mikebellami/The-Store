@@ -14,7 +14,7 @@ import { Home, Product, Confirmation, Account, Cart, Payment } from "./page";
 function App() {
 	return (
 		<CartProvider>
-			<Router>
+			<Router basename="/">
 				<Routes>
 					<Route element={<AppWrapper />}>
 						<Route index element={<Home />} />
