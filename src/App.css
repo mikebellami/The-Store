@@ -125,6 +125,33 @@ h6 {
   z-index: -1;
 }
 
+/* modal */
+.modal-header {
+	border: none;
+}
+
+.modal-header .close {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: #dfe1e3;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 2.2rem;
+}
+
+.modal-xlg {
+    width: 1200px !important;
+    max-width: 1200px;
+}
+
+.modal-xsm {
+    width: 200px !important;
+    max-width: 200px;
+}
+
 @media screen and (max-width: 1024px) {
   .app-wrapper {
     padding: 20px 20px;
