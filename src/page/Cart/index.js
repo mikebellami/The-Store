@@ -4,9 +4,9 @@ import styles from "./cart.module.css";
 
 const Cart = () => {
 	return (
-		<div className="container">
+		<div className="container mb-5" style={{minHeight:"75vh"}}>
 			<div className="row">
-				<div className="col-md-5">
+				<div className="col-lg-6 ">
 					<h3 className={styles.heading}>Shopping cart</h3>
 					{Array(3)
 						.fill(" ")
@@ -14,8 +14,8 @@ const Cart = () => {
 							<ShoppingCartItem />
 						))}
 				</div>
-				<div className="col-md-1"></div>
-				<div className="col-md-6">
+				<div className="col-lg-1"></div>
+				<div className="col-lg-5">
 					<h3 className={styles.heading}>Cart Summary</h3>
 					<div className={styles.summaryWrapper}>
 						<div className={styles.summaryRow}>
