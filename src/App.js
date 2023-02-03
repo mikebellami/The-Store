@@ -14,7 +14,7 @@ import { Home, Product, Confirmation, Account, Cart } from "./page";
 function App() {
 	return (
 		<CartProvider>
-			<Router basename="/store-web">
+			<Router basename="/">
 				<Routes>
 					<Route element={<AppWrapper />}>
 						<Route index element={<Home />} />

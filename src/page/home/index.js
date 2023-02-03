@@ -1,21 +1,28 @@
-import React from "react";
-import "./home.css";
+import React, { useEffect, useState } from "react";
+import styles from "./home.module.css";
 import { Bg, Product } from "../../assets";
 import { IoSearchOutline } from "react-icons/io5";
 import { SlArrowDown } from "react-icons/sl";
 import { ProductCard } from "../../component";
 
 const Home = () => {
+	// const [f, setF] = useState()
+	
+	// useEffect(() => {
+	// 	setF(window.innerWidth +"x"+window.innerHeight)
+	// }, [f])
+	
 	return (
-		<div className="hero-section">
-			<div className="hero-img" style={{ backgroundImage: `url(${Bg})` }}></div>
-			<div className="store-initails">
+		<div className={styles["hero-section"]}>
+			<div className={styles["hero-img"]} style={{ backgroundImage: `url(${Bg})` }}></div>
+			<div className={styles["store-initails"]}>
 				<h1>BP</h1>
 			</div>
 			<div className="container">
-				<div className="store-wrapper">
-					<h1 className="store-title">Bambam’s Perfume Store</h1>
-					<p className="store-description">
+				<div className={styles["store-wrapper"]}>
+					
+					<h1 className={styles["store-title"]}>Bambam’s Perfume Store</h1>
+					<p className={styles["store-description"]}>
 						Welcome to my store, I sell bespoke perfumes at affordable prices.
 						<br />
 						Lorem ipsum dolor sit amet consectetur. Ullamcorper sodales tempus
@@ -23,22 +30,22 @@ const Home = () => {
 						sollicitudin.
 					</p>
 				</div>
-				<div className="search-wrapper">
-					<div className="serach-container gap-2">
-						<IoSearchOutline className="search-icon" />
+				<div className={styles["search-wrapper"]}>
+					<div className={styles["serach-container"]}>
+						<IoSearchOutline className={styles["search-icon"]} />
 						<input
 							type="text"
-							className="search-input"
+							className={styles["search-input"]}
 							placeholder="Search for products"
 						/>
-						<button className="search-btn">Search </button>
+						<button className={styles["search-btn"]}>Search </button>
 					</div>
 				</div>
 
-				<div className="products-container">
-					<div className="products-header">
-						<h2 className="products-title">Explore Products</h2>
-						<h2 className=" product-feature">
+				<div className={styles["products-container"]}>
+					<div className={styles["products-header"]}>
+						<h2 className={styles["products-title"]}>Explore Products</h2>
+						<h2 className={styles["product-feature"]}>
 							Featured <span><SlArrowDown className="ml-2 product-feature-icon" /></span>
 						</h2>
 					</div>
@@ -47,7 +54,7 @@ const Home = () => {
 							.fill("")
 							.map((_, index) => (
 								<div className="col-lg-3 col-md-6 col-sm-1">
-									<ProductCard image={Product} key={index} />
+									<ProductCard image={Product}  key={index} />
 								</div>
 							))}
 					</div>

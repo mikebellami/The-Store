@@ -2,7 +2,7 @@
     "name": "store",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://mikebellami.github.io/store-web/",
+
     "dependencies": {
         "@tanstack/react-query": "^4.24.3",
         "@tanstack/react-query-devtools": "^4.24.3",

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styles from "./Account.module.css";
-import { Card } from "../../component";
+import { Card, Modal } from "../../component";
 
 import { Product2 } from "../../assets";
 
 const Account = () => {
+  const [modalOpen, setModalOpen] = useState(true);
 	return (
 		<>
 			<div className="container">
@@ -22,12 +23,21 @@ const Account = () => {
 							.fill("")
 							.map((_, index) => (
                 <div className="col-12 ">
-                <Card productImg={Product2} />
+                <Card productImg={Product2}  />
               </div>
 							))}
 					</div>
 				</div>
 			</div>
+
+      <Modal
+				isOpen={modalOpen}
+				setIsOpen={setModalOpen}
+				title="Order #3066"
+				size="l"
+			>
+			
+			</Modal>
 		</>
 	);
 };
