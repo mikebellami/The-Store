@@ -1,0 +1,46 @@
+.productImage {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.productName {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1.9rem;
+    letter-spacing: 0.4px;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.productPrice {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    text-align: center;
+    letter-spacing: 0.4px;
+    color: #2C2E2F;
+    margin: 0;
+}
+
+.quantity {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 100%;
+    letter-spacing: 0.4px;
+    color: #2C2E2F;
+    margin: 0 0 2px;
+}
+
+.quantityNumber {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.9rem;
+    line-height: 100%;
+    letter-spacing: 0.4px;
+    color: #2C2E2F;
+    margin: 0;
+}

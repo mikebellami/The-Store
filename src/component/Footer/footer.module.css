@@ -11,7 +11,7 @@
     list-style: none;
     display: flex;
     gap: 20px;
-   
+
 }
 
 .navlink {
@@ -40,30 +40,36 @@
     height: 25px;
 }
 
-
 .link svg path {
     stroke: #2C2E2F;
 }
+
 .link svg path:hover {
     stroke: var(--primary-color);
 }
+
 .bt {
     border-top: 1px solid #E9E3DB;
     padding-top: 20px;
 }
-.footer,.footer2{
+
+.footer,
+.footer2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-ul{
-    margin-bottom:0;
+
+ul {
+    margin-bottom: 0;
 }
 
-.socialIcons {
+div.socialIcons {
     display: flex;
     gap: 10px;
     align-items: center;
+    width: max-content;
+    margin-left: auto;
 }
 
 .socialIcons svg {
@@ -73,7 +79,7 @@ ul{
 }
 
 @media screen and (max-width: 425px) {
-    .footer{
+    .footer {
         flex-direction: column;
         align-items: flex-start;
     }

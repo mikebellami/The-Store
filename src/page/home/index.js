@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./home.module.css";
 import { Bg, Product } from "../../assets";
 import { IoSearchOutline } from "react-icons/io5";
@@ -6,21 +6,17 @@ import { SlArrowDown } from "react-icons/sl";
 import { ProductCard } from "../../component";
 
 const Home = () => {
-	// const [f, setF] = useState()
-	
-	// useEffect(() => {
-	// 	setF(window.innerWidth +"x"+window.innerHeight)
-	// }, [f])
-	
 	return (
 		<div className={styles["hero-section"]}>
-			<div className={styles["hero-img"]} style={{ backgroundImage: `url(${Bg})` }}></div>
+			<div
+				className={styles["hero-img"]}
+				style={{ backgroundImage: `url(${Bg})` }}
+			></div>
 			<div className={styles["store-initails"]}>
 				<h1>BP</h1>
 			</div>
 			<div className="container">
 				<div className={styles["store-wrapper"]}>
-					
 					<h1 className={styles["store-title"]}>Bambam’s Perfume Store</h1>
 					<p className={styles["store-description"]}>
 						Welcome to my store, I sell bespoke perfumes at affordable prices.
@@ -46,7 +42,10 @@ const Home = () => {
 					<div className={styles["products-header"]}>
 						<h2 className={styles["products-title"]}>Explore Products</h2>
 						<h2 className={styles["product-feature"]}>
-							Featured <span><SlArrowDown className="ml-2 product-feature-icon" /></span>
+							Featured{" "}
+							<span>
+								<SlArrowDown className="ml-2 product-feature-icon" />
+							</span>
 						</h2>
 					</div>
 					<div className="row">
@@ -54,7 +53,7 @@ const Home = () => {
 							.fill("")
 							.map((_, index) => (
 								<div className="col-lg-3 col-md-6 col-sm-1">
-									<ProductCard image={Product}  key={index} />
+									<ProductCard image={Product} key={index} />
 								</div>
 							))}
 					</div>

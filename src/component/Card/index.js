@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styles from "./Card.module.css";
-import { NavLink } from "react-router-dom";
 import { CiCalendar } from "react-icons/ci";
 
 const Card = ({ productImg }) => {
-	const [status, setStatus] = useState("in-transit");
+	const [status] = useState("in-transit");
 
 	const returnStatusColor = (status) => {
 		var string;

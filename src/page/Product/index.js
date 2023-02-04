@@ -6,9 +6,7 @@ import Slider from "react-slick";
 import product from "../../assets/img/product.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ReactComponent as FacebookIcon } from "../../assets/img/facebook.svg";
-import { ReactComponent as InstagramIcon } from "../../assets/img/instagram.svg";
-import { ReactComponent as WhatsAppIcon } from "../../assets/img/whatsapp.svg";
+import { FacebookIcon, InstagramIcon, WhatsAppIcon } from "../../assets";
 
 const Product = () => {
 	const settings = useMemo(
@@ -35,7 +33,10 @@ const Product = () => {
 		<div className="container">
 			<div className={styles.page}>
 				<div className="d-flex justify-content-between mb-3">
-					<ArrowButton icon={<SlArrowLeft size={15} />} text="Back to catalog" />
+					<ArrowButton
+						icon={<SlArrowLeft size={15} />}
+						text="Back to catalog"
+					/>
 					<div className="d-flex">
 						<ArrowButton
 							icon={<SlArrowLeft size={15} />}

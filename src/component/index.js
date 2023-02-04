@@ -6,7 +6,10 @@ import ProductCard from "./ProductCard";
 import CartIcon from "./CartIcon";
 import Card from "./Card";
 import ShoppingCartItem from "./ShoppingCartItem";
+import CustomInput, { CustomRadio } from "./CustomInput";
 import Modal from "./Modal";
+import ProductInfo from "./ProductInfo";
+import PaymentCard from "./PaymentCard";
 
 export {
 	Header,
@@ -17,5 +20,9 @@ export {
 	CartIcon,
 	Card,
 	ShoppingCartItem,
-	Modal
+	CustomInput,
+	CustomRadio,
+	Modal,
+	ProductInfo,
+	PaymentCard,
 };
