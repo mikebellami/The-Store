@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styles from "./Account.module.css";
 import { Card, Modal } from "../../component";
-
 import { Product2 } from "../../assets";
+import { Dispute } from "../../modal";
 
 const Account = () => {
-  const [modalOpen, setModalOpen] = useState(true);
+	const [modalOpen, setModalOpen] = useState(true);
 	return (
 		<>
 			<div className="container">
@@ -22,21 +22,21 @@ const Account = () => {
 						{Array(12)
 							.fill("")
 							.map((_, index) => (
-                <div className="col-12 ">
-                <Card productImg={Product2}  />
-              </div>
+								<div className="col-12 ">
+									<Card productImg={Product2} />
+								</div>
 							))}
 					</div>
 				</div>
 			</div>
 
-      <Modal
+			<Modal
 				isOpen={modalOpen}
 				setIsOpen={setModalOpen}
 				title="Order #3066"
 				size="l"
 			>
-			
+				<Dispute />
 			</Modal>
 		</>
 	);

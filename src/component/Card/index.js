@@ -1,65 +1,75 @@
-import React, { useState } from 'react'
-import styles  from './Card.module.css'
+import React, { useState } from "react";
+import styles from "./Card.module.css";
 import { NavLink } from "react-router-dom";
-import {CiCalendar} from "react-icons/ci"
+import { CiCalendar } from "react-icons/ci";
 
-const Card = ({productImg}) => {
-  const [status, setStatus] = useState("in-transit");
+const Card = ({ productImg }) => {
+	const [status, setStatus] = useState("in-transit");
 
-   const returnStatusColor = (status) => {
-    var string;
-    switch (status.toLowerCase()) {
-      case "in-transit":
-        string = "#6941C6";
-        break;
-      case "delivered":
-        string = "#00D222";
-        break;
-      default:
-        break;
-    }
-    // console.log(`color-${string}`);
-    return `color:${string}`;
-  };
+	const returnStatusColor = (status) => {
+		var string;
+		switch (status.toLowerCase()) {
+			case "in-transit":
+				string = "#6941C6";
+				break;
+			case "delivered":
+				string = "#00D222";
+				break;
+			default:
+				break;
+		}
+		// console.log(`color-${string}`);
+		return `color:${string}`;
+	};
 
-  return (
-    <>
-    <div className={styles["productCard-wrapper"]}>
-						<div className={styles["productCard-content"]}>
-							<div className={styles["productCard-img"]}>
-                <img src={productImg} alt="product-image" />
-              </div>
-							<div className="w-100">
-								<p className={`${styles.status} ${returnStatusColor(status)}`}>
-									In-Transit
-								</p>
-								<div className={styles["cardContent-wrapper"]}>
-									<p className={styles.orderTitle}>Fancy Dress Inc.</p>
-									<p className={styles.orderPrice}>
-										{new Intl.NumberFormat("en-US", {
-											style: "currency",
-											currency: "USD",
-										}).format(15)}
-										<span className="ml-2">total</span>
-									</p>
+	return (
+		<>
+			<div className={styles["productCard-wrapper"]}>
+				<div className={styles["productCard-content"]}>
+					<div className={styles["productCard-img"]}>
+						<img src={productImg} alt="product-image" />
+					</div>
+					<div className="w-100">
+						<p className={`${styles.status} ${returnStatusColor(status)}`}>
+							In-Transit
+						</p>
+						<div className={styles["cardContent-wrapper"]}>
+							<p className={styles.orderTitle}>Fancy Dress Inc.</p>
+							<p className={styles.orderPrice}>
+								{new Intl.NumberFormat("en-US", {
+									style: "currency",
+									currency: "USD",
+								}).format(15)}
+								<span className="ml-2">total</span>
+							</p>
+						</div>
+						<p className={styles.orderNum}>
+							Order Number: <span>43657687</span>
+						</p>
+						<div className={styles["cardContent-wrapper"]}>
+							<div className={styles["cardContent-wrapper2"]}>
+								<div className={styles.orderDate}>
+									<span>
+										<CiCalendar />
+									</span>
+									Order Date: 23 - 03 - 2022
 								</div>
-								<p className={styles.orderNum}>
-									Order Number: <span>43657687</span>
-								</p>
-								<div className={styles["cardContent-wrapper"]}>
-									<div className={styles["cardContent-wrapper2"]}>
-                    <div className={styles.orderDate}><span><CiCalendar/></span>Order Date: 23 - 03 - 2022</div>
-                    <div className={styles.orderDate}><span><CiCalendar/></span>Delivery Date: 25 - 03 - 2022</div>
-                  </div>
-									<button className={styles["productCard-btn"]}>
-										{status === "in-transit" ? "See Details" : "Report Dispute"}
-									</button>
+								<div className={styles.orderDate}>
+									<span>
+										<CiCalendar />
+									</span>
+									Delivery Date: 25 - 03 - 2022
 								</div>
 							</div>
+							<button className={styles["productCard-btn"]}>
+								{status === "in-transit" ? "See Details" : "Report Dispute"}
+							</button>
 						</div>
 					</div>
-    </>
-  )
-}
+				</div>
+			</div>
+		</>
+	);
+};
 
-export default Card
+export default Card;

@@ -1,0 +1,72 @@
+.container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 16px 24px;
+	gap: 20px;
+	background: #f2f3f4;
+}
+.avatarWrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+.avatarContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0px;
+
+	width: 40px;
+	height: 40px;
+}
+
+.avatarName {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 20px;
+	color: #101828;
+}
+.avatarEmail {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 20px;
+	color: rgba(102, 112, 133, 1);
+}
+.date {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 20px;
+	color: #667085;
+}
+
+.price {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 20px;
+	color: #101828;
+}
+
+.Paymentstatus {
+	background: #ecfdf3;
+	border-radius: 16px;
+	display: flex;
+	align-items: center;
+	padding: 2px 8px 2px 6px;
+	gap: 4px;
+	justify-content: center;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 18px;
+	text-align: center;
+	color: #027a48;
+	width: 55px;
+	height: 22px;
+}
