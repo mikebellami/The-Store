@@ -8,6 +8,8 @@ import Card from "./Card";
 import ShoppingCartItem from "./ShoppingCartItem";
 import CustomInput, { CustomRadio } from "./CustomInput";
 import Modal from "./Modal";
+import ProductInfo from "./ProductInfo";
+import PaymentCard from "./PaymentCard";
 
 export {
 	Header,
@@ -21,4 +23,6 @@ export {
 	CustomInput,
 	CustomRadio,
 	Modal,
+	ProductInfo,
+	PaymentCard,
 };

@@ -1,0 +1,35 @@
+.wrapper {
+    display: flex;
+    padding: 16px;
+    gap: 4px;
+    background: #F9F5FF;
+    border: 1px solid #D6BBFB;
+    border-radius: 8px;
+}
+
+div.cardDetails {
+    flex: 1;
+}
+
+div.cardDetails p:first-of-type {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: #53389E;
+    margin: 0;
+}
+
+div.cardDetails p:nth-of-type(2) {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: #5E60CE;
+    margin: 0;
+}
+
+svg.checked {
+    width: 16px;
+    height: 16px;
+}
