@@ -87,7 +87,7 @@ h6 {
 }
 
 .app-wrapper {
-    /* min-height: 100vh; */
+    min-height: 100vh;
     /* padding: 0 70px 20px; */
     display: flex;
     flex-direction: column;
@@ -108,7 +108,7 @@ h6 {
 }
 
 div.accordion {
-    width: 65%;
+    width: 100%;
     border: none;
 }
 
@@ -118,6 +118,11 @@ div.accordion__button {
     font-weight: 500;
     font-size: 1.6rem;
     line-height: 2.4rem;
+    color: white;
+}
+
+div.accordion__button::before {
+    display: none;
 }
 
 .text-danger {
@@ -136,11 +141,11 @@ div.accordion__button {
 
 /* modal */
 .modal-header {
-	border: none;
+    border: none;
 }
 
 .modal-header .close {
-	display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
@@ -161,8 +166,4 @@ div.accordion__button {
     max-width: 200px;
 }
 
-@media screen and (max-width: 1024px) {
-    .app-wrapper {
-        padding: 20px 20px;
-    }
-}
+@media screen and (max-width: 1024px) {}

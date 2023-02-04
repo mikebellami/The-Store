@@ -31,7 +31,7 @@ function App() {
 
 const AppWrapper = () => {
 	return (
-		<div className="app-wrpper">
+		<div className="app-wrapper">
 			<Header />
 			<CartIcon />
 			<Outlet />
