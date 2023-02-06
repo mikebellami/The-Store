@@ -32,4 +32,33 @@ export const CustomRadio = ({ title, name, ...rest }) => {
 	);
 };
 
+export const CustomSelect = ({ title, name, options, ...rest }) => {
+	return (
+		<div className={styles.selectWrapper}>
+			<label className={styles.title} htmlFor={name}>
+				{title}
+			</label>
+			<select className={styles.select} name={name} {...rest}>
+				<option value="" label="Select" selected disabled />
+				{options.map((option, index) => (
+					<option key={index} value={option.value}>
+						{option.label}
+					</option>
+				))}
+			</select>
+		</div>
+	);
+};
+
+export const CustomTextArea =  ({title, name, ...rest}) => {
+	return (
+		<div className={styles.textAreaWrapper}>
+			<label className={styles.title} htmlFor={name}>
+				{title}
+			</label>
+			<textarea className={styles.textArea} name={name} {...rest} />
+		</div>
+	)
+}
+
 export default CustomInput;

@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import styles from "./Card.module.css";
 import { CiCalendar } from "react-icons/ci";
 
-const Card = ({ productImg }) => {
+const Card = ({ productImg, setModalOpen }) => {
 	const [status] = useState("in-transit");
-
 	const returnStatusColor = (status) => {
 		var string;
 		switch (status.toLowerCase()) {
@@ -60,7 +59,13 @@ const Card = ({ productImg }) => {
 									Delivery Date: 25 - 03 - 2022
 								</div>
 							</div>
-							<button className={styles["productCard-btn"]}>
+							<button
+								className={styles["productCard-btn"]}
+								onClick={() => {
+									console.log("asas");
+									setModalOpen = { setModalOpen };
+								}}
+							>
 								{status === "in-transit" ? "See Details" : "Report Dispute"}
 							</button>
 						</div>

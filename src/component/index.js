@@ -6,7 +6,7 @@ import ProductCard from "./ProductCard";
 import CartIcon from "./CartIcon";
 import Card from "./Card";
 import ShoppingCartItem from "./ShoppingCartItem";
-import CustomInput, { CustomRadio } from "./CustomInput";
+import CustomInput, { CustomRadio, CustomSelect,CustomTextArea } from "./CustomInput";
 import Modal from "./Modal";
 import ProductInfo from "./ProductInfo";
 import PaymentCard from "./PaymentCard";
@@ -22,6 +22,8 @@ export {
 	ShoppingCartItem,
 	CustomInput,
 	CustomRadio,
+	CustomSelect,
+	CustomTextArea,
 	Modal,
 	ProductInfo,
 	PaymentCard,

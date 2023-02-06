@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Account.module.css";
 import { Card, Modal } from "../../component";
 import { Product2 } from "../../assets";
@@ -6,6 +6,10 @@ import { Dispute } from "../../modal";
 
 const Account = () => {
 	const [modalOpen, setModalOpen] = useState(true);
+	// useEffect(() => {
+	// console.log("modalOpen", modalOpen);
+	// }, [modalOpen])
+	
 	return (
 		<>
 			<div className="container">
@@ -23,7 +27,7 @@ const Account = () => {
 							.fill("")
 							.map((_, index) => (
 								<div className="col-12 ">
-									<Card productImg={Product2} />
+									<Card productImg={Product2} setModalOpen={true} />
 								</div>
 							))}
 					</div>
