@@ -42,7 +42,7 @@ const Home = () => {
 					<div className={styles["products-header"]}>
 						<h2 className={styles["products-title"]}>Explore Products</h2>
 						<h2 className={styles["product-feature"]}>
-							Featured{" "}
+							Featured
 							<span>
 								<SlArrowDown className="ml-2 product-feature-icon" />
 							</span>

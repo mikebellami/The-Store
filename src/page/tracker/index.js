@@ -1,0 +1,100 @@
+import React from "react";
+import styles from "./Tracker.module.css";
+import { SlArrowRight } from "react-icons/sl";
+import { SecondProductInfo } from "../../component";
+
+const Tracker = () => {
+	return (
+		<>
+			<div className="container">
+				<div className={styles.trackerContainer}>
+					<h1>My Account</h1>
+					<div className={styles.hr}></div>
+					<div className={styles.breadcrumb}>
+						<div className={styles.breadcrumbTitle}>My Account </div>
+						<div>
+							<SlArrowRight fontSize="1rem" />
+						</div>
+						<div className={styles.breadcrumbActive}>Orders</div>
+					</div>
+
+					<div className="row">
+						<div className="col lg-7">
+							<div className={styles.trackerWrapper}>
+								<div className={styles.dateContainer}>
+									<div className={styles.dateTitle}>Track Details</div>
+                                    <div className={styles.dateWrapper}>
+                                        <div>Jan 23</div>
+                                        <div className="">
+                                            <div className={styles.dateCircleDivider}></div>
+                                            <div className={styles.dateLineDivider}></div>
+                                        </div>
+                                        <div></div>
+                                    </div>
+								</div>
+							</div>
+						</div>
+						<div className="col lg-5">
+							<div className={styles.summaryWrapper}>
+								<p className={styles.orderNum}>Order 43657687 </p>
+
+								<div className="my-5">
+									{Array(3)
+										.fill(" ")
+										.map(() => (
+											<SecondProductInfo />
+										))}
+								</div>
+
+								<div className={styles.hr}></div>
+
+								<div className={styles.feesContainer}>
+									<div className={styles.feesDescription}>
+										<p>Shipping</p>
+										<p>
+											{new Intl.NumberFormat("en-US", {
+												style: "currency",
+												currency: "NGN",
+											}).format(12)}
+										</p>
+									</div>
+									<div className={styles.feesDescription}>
+										<p>Escrow Fee</p>
+										<p>
+											{new Intl.NumberFormat("en-US", {
+												style: "currency",
+												currency: "NGN",
+											}).format(15)}
+										</p>
+									</div>
+									<div className={styles.feesDescription}>
+										<p>Shipping Fee</p>
+										<p>
+											{new Intl.NumberFormat("en-US", {
+												style: "currency",
+												currency: "NGN",
+											}).format(15)}
+										</p>
+									</div>
+									<div className={styles.feesDescriptionTotal}>
+										<p>Total</p>
+										<p>
+											<strong>
+												{new Intl.NumberFormat("en-US", {
+													style: "currency",
+													currency: "NGN",
+												}).format(15)}
+											</strong>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+};
+
+export default Tracker;

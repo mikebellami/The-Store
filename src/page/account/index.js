@@ -5,7 +5,7 @@ import { Product2 } from "../../assets";
 import { Dispute } from "../../modal";
 
 const Account = () => {
-	const [modalOpen, setModalOpen] = useState(true);
+	const [modalOpen, setModalOpen] = useState(false);
 	// useEffect(() => {
 	// console.log("modalOpen", modalOpen);
 	// }, [modalOpen])
@@ -26,8 +26,8 @@ const Account = () => {
 						{Array(12)
 							.fill("")
 							.map((_, index) => (
-								<div className="col-12 ">
-									<Card productImg={Product2} setModalOpen={true} />
+								<div className="col-12 " key={index} >
+									<Card productImg={Product2} setModalOpen={setModalOpen} />
 								</div>
 							))}
 					</div>

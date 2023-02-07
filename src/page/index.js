@@ -1,8 +1,9 @@
 import Home from "./home";
-import Product from "./Product";
+import Product from "./product";
 import Confirmation from "./confirmation";
 import Account from "./account";
-import Cart from "./Cart";
-import Payment from "./Payment";
+import Cart from "./cart";
+import Payment from "./payment";
+import Tracker from "./tracker";
 
-export { Home, Product, Cart, Confirmation, Account, Payment };
+export { Home, Product, Cart, Confirmation, Account, Payment, Tracker };

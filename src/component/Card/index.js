@@ -63,7 +63,7 @@ const Card = ({ productImg, setModalOpen }) => {
 								className={styles["productCard-btn"]}
 								onClick={() => {
 									console.log("asas");
-									setModalOpen = { setModalOpen };
+									setModalOpen(true);
 								}}
 							>
 								{status === "in-transit" ? "See Details" : "Report Dispute"}

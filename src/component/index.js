@@ -10,6 +10,7 @@ import CustomInput, { CustomRadio, CustomSelect,CustomTextArea } from "./CustomI
 import Modal from "./Modal";
 import ProductInfo from "./ProductInfo";
 import PaymentCard from "./PaymentCard";
+import SecondProductInfo from "./SecondProductInfo";
 
 export {
 	Header,
@@ -27,4 +28,5 @@ export {
 	Modal,
 	ProductInfo,
 	PaymentCard,
+	SecondProductInfo
 };
