@@ -1,124 +1,157 @@
 .trackerContainer {
-	margin-top: 40px;
-	margin-bottom: 100px;
+  margin-top: 40px;
+  margin-bottom: 100px;
 }
 
 .trackerContainer h1 {
-	font-style: normal;
-	font-weight: 800;
-	font-size: 30px;
-	line-height: 38px;
-	color: #18191f;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 38px;
+  color: #18191f;
 }
 
 .trackerWrapper,
 .summaryWrapper {
-	background: #ffffff;
-	border: 1px solid #eaecf0;
-	box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1),
-		0px 1px 2px rgba(16, 24, 40, 0.06);
-	border-radius: 12px;
-	box-sizing: border-box;
-	padding: 40px 20px;
+  background: #ffffff;
+  border: 1px solid #eaecf0;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1),
+    0px 1px 2px rgba(16, 24, 40, 0.06);
+  border-radius: 12px;
+  box-sizing: border-box;
+  padding: 40px 20px;
 }
 
 .hr {
-	border-bottom: 1px solid #eaecf0;
-	margin: 10px 5px;
+  border-bottom: 1px solid #eaecf0;
+  margin: 10px 5px;
 }
 
 .breadcrumb {
-	display: flex;
-	margin: 30px auto;
-	align-items: center;
-	justify-content: flex-start;
-	gap: 10px;
+  display: flex;
+  margin: 30px auto;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
 }
 .breadcrumbTitle {
-	font-style: normal;
-	font-weight: 400;
-	font-size: 1.4rem;
-	line-height: 17px;
-	color: #18191f;
-	opacity: 0.7;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 17px;
+  color: #18191f;
+  opacity: 0.7;
 }
 .breadcrumbActive {
-	font-style: normal;
-	font-weight: 400;
-	font-size: 1.4rem;
-	line-height: 17px;
-	color: var(--primary-color);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 17px;
+  color: var(--primary-color);
 }
 
 .orderNum {
-	font-style: normal;
-	font-weight: 600;
-	font-size: 2.4rem;
-	line-height: 29px;
-	color: #18191f;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2.4rem;
+  line-height: 29px;
+  color: #18191f;
 }
 .feesContainer {
-	margin-top: 30px;
+  margin-top: 30px;
 }
 
 .feesDescription,
 .feesDescriptionTotal {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
 }
 
 .feesDescription p {
-	font-style: normal;
-	font-weight: 400;
-	font-size: 1.6rem;
-	line-height: 150%;
-	letter-spacing: 0.4px;
-	color: #2c2e2f;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 150%;
+  letter-spacing: 0.4px;
+  color: #2c2e2f;
 }
 .feesDescriptionTotal p {
-	font-style: normal;
-	font-weight: 400;
-	font-size: 1.8rem;
-	line-height: 150%;
-	letter-spacing: 0.4px;
-	color: #2c2e2f;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 150%;
+  letter-spacing: 0.4px;
+  color: #2c2e2f;
 }
-.dateContainer {
+.timelineContainer {
 }
-.dateTitle,
-.dateWrapper {
-	font-style: normal;
-	font-weight: 600;
-	font-size: 18px;
-	line-height: 28px;
-	color: #101828;
-}
-
-.dateWrapper {
-	display: flex;
-	align-items: center;
-	gap: 10px;
+.timelineTitle {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  color: #101828;
+  margin: 20px 0;
 }
 
-.dividerContainer{
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
+.dividerContainer {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
-.dateCircleDivider {
-	width: 8px;
-	height: 8px;
-	background: #18191f;
-	border-radius: 50%;
+.timelineWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+  margin-bottom: 20px;
 }
-.dateLineDivider {
-	width: 60px;
-	height: 2px;
-	background: #18191f;
-	transform: rotate(90deg);
+
+.timelineDivider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.timelineDivider::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #18191f;
+}
+.timelineDivider::after {
+  content: "";
+  width: 2px;
+  min-height: 50px;
+  background: #18191f;
+  margin-top: 5px;
+}
+.timestamp {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 24px;
+  text-align: center;
+  color: #18191f;
+}
+.timelineDetails p {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 19px;
+  color: #344054;
+}
+
+.timelineDetails span {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 17px;
+  color: rgba(24, 25, 31, 0.55);
 }

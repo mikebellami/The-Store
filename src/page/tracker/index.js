@@ -19,30 +19,38 @@ const Tracker = () => {
 					</div>
 
 					<div className="row">
-						<div className="col lg-7">
+						<div className="col-lg-7">
 							<div className={styles.trackerWrapper}>
-								<div className={styles.dateContainer}>
-									<div className={styles.dateTitle}>Track Details</div>
-                                    <div className={styles.dateWrapper}>
-                                        <div>Jan 23</div>
-                                        <div className="">
-                                            <div className={styles.dateCircleDivider}></div>
-                                            <div className={styles.dateLineDivider}></div>
-                                        </div>
-                                        <div></div>
-                                    </div>
+								<div className={styles.timelineContainer}>
+									<div className={styles.timelineTitle}>Track Details</div>
+									{Array(6)
+										.fill(" ")
+										.map((_, index) => (
+											<div className={styles.timelineWrapper} >
+												<div className={styles.timestamp}>Jan <br />23</div>
+												<div className={styles.timelineDivider}></div>
+												<div className={styles.timelineDetails}>
+													<p >Order Confirmed</p>
+													<span>Order has been placed</span>
+												</div>
+											</div>
+										))}
+
 								</div>
 							</div>
 						</div>
-						<div className="col lg-5">
+
+						<div className="col-lg-5">
 							<div className={styles.summaryWrapper}>
 								<p className={styles.orderNum}>Order 43657687 </p>
 
 								<div className="my-5">
 									{Array(3)
 										.fill(" ")
-										.map(() => (
-											<SecondProductInfo />
+										.map((_, index) => (
+											<div key={index} >
+												<SecondProductInfo />
+											</div>
 										))}
 								</div>
 
