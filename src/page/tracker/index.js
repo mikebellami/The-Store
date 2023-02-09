@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Tracker.module.css";
 import { SlArrowRight } from "react-icons/sl";
+import { FiBox, FiCheckSquare, FiShoppingCart, FiTruck } from "react-icons/fi";
 import { SecondProductInfo } from "../../component";
 
 const Tracker = () => {
@@ -19,28 +20,66 @@ const Tracker = () => {
 					</div>
 
 					<div className="row">
-						<div className="col-lg-7">
+						<div className="col-lg-7 mb-5">
 							<div className={styles.trackerWrapper}>
+								<div className={styles.process}>
+									<ul>
+										<li>
+											<div className={styles.icon}>
+												<FiShoppingCart />
+											</div>
+											<div className={styles.title}>Payments</div>
+										</li>
+										<li>
+											<div className={styles.icon}>
+												<FiBox />
+											</div>
+											<div className={styles.title}>Processing</div>
+										</li>
+										<li className={styles.active}>
+											<div className={styles.icon}>
+												<FiTruck />
+											</div>
+											<div className={styles.title}>In Transit</div>
+										</li>
+
+										<li>
+											<div className={styles.icon}>
+												<FiCheckSquare />
+											</div>
+											<div className={styles.title}>Delivered</div>
+										</li>
+										<li>
+											<div className={styles.icon}>
+												<FiCheckSquare />
+											</div>
+											<div className={styles.title}>Review</div>
+										</li>
+									</ul>
+								</div>
+
 								<div className={styles.timelineContainer}>
 									<div className={styles.timelineTitle}>Track Details</div>
 									{Array(6)
 										.fill(" ")
 										.map((_, index) => (
-											<div className={styles.timelineWrapper} >
-												<div className={styles.timestamp}>Jan <br />23</div>
+											<div className={styles.timelineWrapper}>
+												<div className={styles.timestamp}>
+													Jan <br />
+													23
+												</div>
 												<div className={styles.timelineDivider}></div>
 												<div className={styles.timelineDetails}>
-													<p >Order Confirmed</p>
+													<p>Order Confirmed</p>
 													<span>Order has been placed</span>
 												</div>
 											</div>
 										))}
-
 								</div>
 							</div>
 						</div>
 
-						<div className="col-lg-5">
+						<div className="col-lg-5 mb-5 ">
 							<div className={styles.summaryWrapper}>
 								<p className={styles.orderNum}>Order 43657687 </p>
 
@@ -48,7 +87,7 @@ const Tracker = () => {
 									{Array(3)
 										.fill(" ")
 										.map((_, index) => (
-											<div key={index} >
+											<div key={index}>
 												<SecondProductInfo />
 											</div>
 										))}
