@@ -170,4 +170,40 @@ div.accordion__button::before {
     max-width: 200px;
 }
 
+.pagination {
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.pagination .page-item .page-link {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 0;
+    border: 1px solid #dedede;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-right: 6px;
+    color: #757575;
+}
+
+.pagination .page-item .page-link:hover {
+    background: #5E60CE;
+    color: #fff;
+}
+
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+    border-radius: 0;
+}
+
+.pagination .page-item.active .page-link {
+    background: #5E60CE;
+    color: #fff;
+    border-color: #5E60CE;
+}
+
 @media screen and (max-width: 1024px) {}

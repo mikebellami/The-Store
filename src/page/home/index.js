@@ -4,27 +4,48 @@ import { Bg, Product } from "../../assets";
 import { IoSearchOutline } from "react-icons/io5";
 import { SlArrowDown } from "react-icons/sl";
 import { ProductCard } from "../../component";
+import { getMerchant } from "../../api";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import ReactPaginate from "react-paginate";
 
 const Home = () => {
+	const { id } = useParams();
+	const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
+
+	const page = searchParams.get("page");
+
+	const { data } = useQuery({
+		queryKey: ["mechart", id, page],
+		queryFn: () => getMerchant(id, page),
+	});
+
+	const handlePageClick = (event) => {
+		searchParams.set("page", event.selected + 1);
+		setSearchParams(searchParams);
+	};
+
 	return (
 		<div className={styles["hero-section"]}>
 			<div
 				className={styles["hero-img"]}
 				style={{ backgroundImage: `url(${Bg})` }}
 			></div>
-			<div className={styles["store-initails"]}>
-				<h1>BP</h1>
-			</div>
+			<img
+				className={styles["store-initails"]}
+				src={`https://ui-avatars.com/api/?name=${data?.businessname}`}
+				alt="business"
+			/>
 			<div className="container">
 				<div className={styles["store-wrapper"]}>
-					<h1 className={styles["store-title"]}>Bambam’s Perfume Store</h1>
-					<p className={styles["store-description"]}>
+					<h1 className={styles["store-title"]}>{data?.businessname}</h1>
+					{/* <p className={styles["store-description"]}>
 						Welcome to my store, I sell bespoke perfumes at affordable prices.
 						<br />
 						Lorem ipsum dolor sit amet consectetur. Ullamcorper sodales tempus
 						et tortor risus dignissim tellus. Magna lobortis sapien sit est quis
 						sollicitudin.
-					</p>
+					</p> */}
 				</div>
 				<div className={styles["search-wrapper"]}>
 					<div className={styles["serach-container"]}>
@@ -49,14 +70,29 @@ const Home = () => {
 						</h2>
 					</div>
 					<div className="row">
-						{Array(12)
-							.fill("")
-							.map((_, index) => (
-								<div className="col-lg-3 col-md-6 col-sm-1">
-									<ProductCard image={Product} key={index} />
-								</div>
-							))}
+						{data?.products?.data?.map((product, index) => (
+							<div className="col-lg-3 col-md-6 col-sm-1" key={index}>
+								<ProductCard image={Product} product={product} />
+							</div>
+						))}
 					</div>
+					<ReactPaginate
+						breakLabel="..."
+						nextLabel="&raquo;"
+						onPageChange={handlePageClick}
+						pageRangeDisplayed={5}
+						pageCount={data?.products?.meta?.last_page}
+						previousLabel="&laquo;"
+						renderOnZeroPageCount={null}
+						pageClassName="page-item"
+						className="pagination"
+						pageLinkClassName="page-link"
+						activeClassName="active"
+						nextClassName="page-item"
+						previousClassName="page-item"
+						nextLinkClassName="page-link"
+						previousLinkClassName="page-link"
+					/>
 				</div>
 			</div>
 		</div>

@@ -1,61 +1,78 @@
-import { createContext, useContext, useReducer } from "react";
+import {
+	createContext,
+	useContext,
+	useEffect,
+	useMemo,
+	useReducer,
+} from "react";
+import {
+	fireSwalError,
+	fireSwalSuccess,
+	getFromStorage,
+	setToStorage,
+} from "../constants";
 
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-	const initialState = {
-		store: null,
+	const initialState = getFromStorage("state") || {
+		merchant_email: null,
 		cart: [],
 	};
 
 	const reducer = (state, action) => {
 		switch (action.type) {
 			case "ADD":
-				//? if is not null and the store of the new item isnt the store in state return state
+				//? if is not null and the merchant of the new item isnt the merchant in state return state
 				if (
-					state.store &&
-					action.payload.product.store._id !== state?.store?._id
+					state.merchant_email &&
+					action.payload.product.merchant_email !== state?.merchant_email
 				) {
-					// fireSwalError(
-					// 	"You cant have products from different stores in the cart"
-					// );
+					fireSwalError(
+						"You cant have products from different stores in the cart"
+					);
 					return state;
 				}
 
 				//? if item is in cart return state
 				if (
 					state.cart.some(
-						(item) => item.product._id === action.payload.product._id
+						(item) => item.product.id === action.payload.product.id
 					)
-				)
+				) {
+					fireSwalSuccess("Item already in cart");
 					return state;
+				}
 
 				var stateCopy = { ...state };
 
 				stateCopy = { ...stateCopy, cart: [...stateCopy.cart, action.payload] };
 
-				//? if there is nothing in the cart set the store to the store of the item
+				//? if there is nothing in the cart set the merchant to the merchant of the item
 				if (!state.cart.length) {
-					stateCopy = { ...stateCopy, store: action.payload.product.store };
+					stateCopy = {
+						...stateCopy,
+						merchant_email: action.payload.product.merchant_email,
+					};
 				}
 
-				// fireSwalSuccess("Item added to cart");
+				fireSwalSuccess("Item added to cart");
 
 				return stateCopy;
 
 			case "REMOVE":
 				const newCart = state.cart.filter(
-					(item) => item.product._id !== action.payload
+					(item) => item.product.id !== action.payload
 				);
 
 				if (!!newCart.length) {
 					return {
-						store: state.store,
+						merchant: state.merchant,
 						cart: newCart,
 					};
 				} else {
 					return {
-						store: null,
+						merchant: null,
 						cart: [],
 					};
 				}
@@ -63,25 +80,25 @@ const CartProvider = ({ children }) => {
 			case "CHANGE-QUANTITY":
 				// if quantity is zero remove item form cart
 				if (action.payload.quantity === 0) {
-					// if cart is empty clear store
+					// if cart is empty clear merchant
 					const newCart = state.cart.filter(
-						(item) => item.product._id !== action.payload.id
+						(item) => item.product.id !== action.payload.id
 					);
 
 					if (!!newCart.length) {
 						return {
-							store: state.store,
+							merchant: state.merchant,
 							cart: newCart,
 						};
 					} else {
 						return {
-							store: null,
+							merchant: null,
 							cart: [],
 						};
 					}
 				} else {
 					const indexOfObjectToUpdate = state.cart.findIndex(
-						({ product }) => product._id === action.payload.id
+						({ product }) => product.id === action.payload.id
 					);
 
 					state.cart[indexOfObjectToUpdate].quantity = action.payload.quantity;
@@ -94,7 +111,7 @@ const CartProvider = ({ children }) => {
 
 			case "CLEAR":
 				return {
-					store: null,
+					merchant: null,
 					cart: [],
 				};
 
@@ -105,11 +122,24 @@ const CartProvider = ({ children }) => {
 
 	const [state, dispatch] = useReducer(reducer, initialState);
 
+	const price = useMemo(
+		() =>
+			state.cart.reduce((accumulator, { product, quantity }) => {
+				return accumulator + parseInt(product.amount) * quantity;
+			}, 0),
+		[state]
+	);
+
+	useEffect(() => {
+		setToStorage("state", state);
+	}, [state]);
+
 	return (
 		<CartContext.Provider
 			value={{
 				state,
 				dispatch,
+				price,
 			}}
 		>
 			{children}

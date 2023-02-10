@@ -7,6 +7,10 @@
     cursor: pointer;
 }
 
+.product-card-link:hover {
+    text-decoration: none;
+}
+
 .product-card-header {
     aspect-ratio: auto 208 / 208;
     background-size: cover;
@@ -24,6 +28,7 @@
     font-style: normal;
     font-weight: 400;
     font-size: 1.8rem;
+    text-transform: capitalize;
     line-height: 2.2rem;
     letter-spacing: 0.4px;
     color: var(--black-color);
@@ -39,6 +44,7 @@
 }
 
 .add-cart {
+    all: unset;
     color: #ffffff;
     background: #fe8f01;
     display: flex;
@@ -64,4 +70,5 @@
     transition: 1s;
     transform: translateY(0px);
     opacity: 1;
+    z-index: 1;
 }

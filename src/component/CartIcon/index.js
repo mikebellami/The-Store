@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./carticon.module.css";
 import { CartSVG } from "../../assets";
 import { useCartContext } from "../../context/cartContext";
+import { Link } from "react-router-dom";
 
 const CartIcon = () => {
 	const {
@@ -11,9 +12,9 @@ const CartIcon = () => {
 	if (!cart.length) return;
 
 	return (
-		<div className={styles.wrapper}>
+		<Link to="/cart" className={styles.wrapper}>
 			<CartSVG />
-		</div>
+		</Link>
 	);
 };
 

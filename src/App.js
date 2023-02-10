@@ -8,7 +8,15 @@ import {
 import "./App.css";
 import { CartIcon, Footer, Header } from "./component";
 import CartProvider from "./context/cartContext";
-import { Home, Product, Confirmation, Account, Cart, Payment,Tracker } from "./page";
+import {
+	Home,
+	Product,
+	Confirmation,
+	Account,
+	Cart,
+	Payment,
+	Tracker,
+} from "./page";
 
 function App() {
 	return (
@@ -16,7 +24,7 @@ function App() {
 			<Router basename="/">
 				<Routes>
 					<Route element={<AppWrapper />}>
-						<Route index element={<Home />} />
+						<Route path="/:id" exact element={<Home />} />
 						<Route path="/product/:id" element={<Product />} />
 						<Route path="/confirmation" element={<Confirmation />} />
 						<Route path="/account" element={<Account />} />
