@@ -25,7 +25,7 @@ const Card = ({ productImg, setModalOpen }) => {
 			<div className={styles["productCard-wrapper"]}>
 				<div className={styles["productCard-content"]}>
 					<div className={styles["productCard-img"]}>
-						<img src={productImg} alt="product-image" />
+						<img src={productImg} alt="product" />
 					</div>
 					<div className="w-100">
 						<p className={`${styles.status} ${returnStatusColor(status)}`}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Account.module.css";
 import { Card, Modal } from "../../component";
 import { Product2 } from "../../assets";
@@ -6,10 +6,7 @@ import { Dispute } from "../../modal";
 
 const Account = () => {
 	const [modalOpen, setModalOpen] = useState(false);
-	// useEffect(() => {
-	// console.log("modalOpen", modalOpen);
-	// }, [modalOpen])
-	
+
 	return (
 		<>
 			<div className="container">
@@ -26,7 +23,7 @@ const Account = () => {
 						{Array(12)
 							.fill("")
 							.map((_, index) => (
-								<div className="col-12 " key={index} >
+								<div className="col-12 " key={index}>
 									<Card productImg={Product2} setModalOpen={setModalOpen} />
 								</div>
 							))}

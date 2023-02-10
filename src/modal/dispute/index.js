@@ -14,7 +14,7 @@ const Dispute = () => {
 			<div className={styles.container}>
 				<div className={styles.avatarWrapper}>
 					<div className={styles.avatarContainer}>
-						<img src={Avatar} />
+						<img src={Avatar} alt="sdfsc" />
 					</div>
 					<div>
 						<div className={styles.avatarName}>Jane Lynn</div>
@@ -82,7 +82,7 @@ const Dispute = () => {
 									Seller will be notified if there’s an issue with your order
 									and may get a refund. Review our{" "}
 									<span>
-										<a href="#" className={styles.refundLink}>
+										<a href="/" className={styles.refundLink}>
 											Return Policy
 										</a>
 									</span>
