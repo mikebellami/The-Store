@@ -7,13 +7,11 @@ const QuantityInput = ({ quantity, setQuantity, quantityLeft }) => {
 		<div className={styles.quantityWrapper}>
 			<button
 				className={`${styles.quantityBtn} ${styles.left}`}
-				onClick={() =>
-					setQuantity((prevState) => {
-						const value = prevState - 1;
-						if (value < 1) return 1;
-						return value;
-					})
-				}
+				onClick={() => {
+					var value = quantity - 1;
+					if (value < 1) value = 1;
+					setQuantity(value);
+				}}
 			>
 				<BiMinus size={10} />
 			</button>
@@ -23,17 +21,20 @@ const QuantityInput = ({ quantity, setQuantity, quantityLeft }) => {
 				value={quantity}
 				min={0}
 				max={quantityLeft}
-				onChange={(e) => setQuantity(e.target.valueAsNumber)}
+				onChange={(e) => {
+					var value = e.target.valueAsNumber;
+					if (value < 1) value = 1;
+					if (value > quantityLeft) value = quantityLeft;
+					setQuantity(value);
+				}}
 			/>
 			<button
 				className={`${styles.quantityBtn} ${styles.right}`}
-				onClick={() =>
-					setQuantity((prevState) => {
-						const value = prevState + 1;
-						if (value > quantityLeft) return prevState;
-						return value;
-					})
-				}
+				onClick={() => {
+					var value = quantity + 1;
+					if (value > quantityLeft) value = quantity;
+					setQuantity(value);
+				}}
 			>
 				<BiPlus size={10} />
 			</button>

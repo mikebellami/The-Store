@@ -4,7 +4,7 @@ import { useCartContext } from "../../context/cartContext";
 import styles from "./cart.module.css";
 
 const Cart = () => {
-	const { state } = useCartContext();
+	const { state, price } = useCartContext();
 
 	return (
 		<div className="container">
@@ -21,9 +21,9 @@ const Cart = () => {
 						<h3 className={styles.heading}>Cart Summary</h3>
 						<div className={styles.summaryWrapper}>
 							<div className={styles.summaryRow}>
-								<p>3 Items</p>
+								<p>{state?.cart?.length} items in cart</p>
 							</div>
-							<div className={styles.summaryRow}>
+							{/* <div className={styles.summaryRow}>
 								<p>Escrow Fee</p>
 								<p>
 									{new Intl.NumberFormat("en-GB", {
@@ -31,14 +31,14 @@ const Cart = () => {
 										currency: "NGN",
 									}).format(8500)}
 								</p>
-							</div>
+							</div> */}
 							<div className={styles.summaryRow}>
 								<p>Subtotal</p>
 								<p>
 									{new Intl.NumberFormat("en-GB", {
 										style: "currency",
 										currency: "NGN",
-									}).format(1500)}
+									}).format(price)}
 								</p>
 							</div>
 							<button className={styles.btn}>Proceed to Checkout</button>

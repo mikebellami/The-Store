@@ -2,6 +2,7 @@
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
+    border-radius: 10px;
 }
 
 .productName {
@@ -11,6 +12,7 @@
     line-height: 1.9rem;
     letter-spacing: 0.4px;
     color: #495057;
+    text-transform: capitalize;
 }
 
 .productPrice {
@@ -21,4 +23,8 @@
     letter-spacing: 0.4px;
     color: #495057;
     margin: 0;
+}
+
+.btn {
+    all: unset;
 }
