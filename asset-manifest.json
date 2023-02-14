@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/the-store/static/css/main.62c76a23.css",
-    "main.js": "/the-store/static/js/main.5eadb74e.js",
-    "static/media/instagram.svg": "/the-store/static/media/instagram.f73c8591a45fffeb34c9bc5ba5cd2e5c.svg",
-    "static/media/product2.png": "/the-store/static/media/product2.e0e232f950d5bd4643a6.png",
-    "static/media/product.png": "/the-store/static/media/product.46bbc24c6c98a8af0b80.png",
-    "static/media/avatar.png": "/the-store/static/media/avatar.38dd422c11a0d0729c8b.png",
-    "static/media/bg.png": "/the-store/static/media/bg.828c07b3e9783f46da6f.png",
-    "static/media/whatsapp.svg": "/the-store/static/media/whatsapp.b981da20e9301ad025d52f43fee0f756.svg",
-    "static/media/slick.svg": "/the-store/static/media/slick.2630a3e3eab21c607e21.svg",
-    "static/media/slick.eot": "/the-store/static/media/slick.a4e97f5a2a64f0ab1323.eot",
-    "static/media/slick.ttf": "/the-store/static/media/slick.c94f7671dcc99dce43e2.ttf",
-    "static/media/visa.svg": "/the-store/static/media/visa.0a4640c7642344a53ff78e168603a2b2.svg",
-    "static/media/slick.woff": "/the-store/static/media/slick.295183786cd8a1389865.woff",
-    "index.html": "/the-store/index.html",
-    "static/media/checked.svg": "/the-store/static/media/checked.73d583cd1e7e58d270ab70e775d3b13e.svg",
-    "static/media/shopping-bag.svg": "/the-store/static/media/shopping-bag.8c515153f2bd3a6433d3acb86ffa01f9.svg",
-    "static/media/facebook.svg": "/the-store/static/media/facebook.b52aa60e7855917e3eccef893faf5853.svg",
-    "static/media/profile.svg": "/the-store/static/media/profile.8b6169de6e9140dd100dfd94101fc1c0.svg",
-    "static/media/arrow-down.svg": "/the-store/static/media/arrow-down.06e595d441057b915168.svg",
-    "main.62c76a23.css.map": "/the-store/static/css/main.62c76a23.css.map",
-    "main.5eadb74e.js.map": "/the-store/static/js/main.5eadb74e.js.map"
+    "main.css": "/The-Store/static/css/main.b1c0efd9.css",
+    "main.js": "/The-Store/static/js/main.19e5d02b.js",
+    "static/media/instagram.svg": "/The-Store/static/media/instagram.f73c8591a45fffeb34c9bc5ba5cd2e5c.svg",
+    "static/media/product2.png": "/The-Store/static/media/product2.e0e232f950d5bd4643a6.png",
+    "static/media/product.png": "/The-Store/static/media/product.46bbc24c6c98a8af0b80.png",
+    "static/media/avatar.png": "/The-Store/static/media/avatar.38dd422c11a0d0729c8b.png",
+    "static/media/bg.png": "/The-Store/static/media/bg.828c07b3e9783f46da6f.png",
+    "static/media/whatsapp.svg": "/The-Store/static/media/whatsapp.b981da20e9301ad025d52f43fee0f756.svg",
+    "static/media/slick.svg": "/The-Store/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/The-Store/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/The-Store/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/visa.svg": "/The-Store/static/media/visa.0a4640c7642344a53ff78e168603a2b2.svg",
+    "static/media/slick.woff": "/The-Store/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/The-Store/index.html",
+    "static/media/checked.svg": "/The-Store/static/media/checked.73d583cd1e7e58d270ab70e775d3b13e.svg",
+    "static/media/shopping-bag.svg": "/The-Store/static/media/shopping-bag.8c515153f2bd3a6433d3acb86ffa01f9.svg",
+    "static/media/facebook.svg": "/The-Store/static/media/facebook.b52aa60e7855917e3eccef893faf5853.svg",
+    "static/media/profile.svg": "/The-Store/static/media/profile.8b6169de6e9140dd100dfd94101fc1c0.svg",
+    "static/media/arrow-down.svg": "/The-Store/static/media/arrow-down.06e595d441057b915168.svg",
+    "main.b1c0efd9.css.map": "/The-Store/static/css/main.b1c0efd9.css.map",
+    "main.19e5d02b.js.map": "/The-Store/static/js/main.19e5d02b.js.map"
   },
   "entrypoints": [
-    "static/css/main.62c76a23.css",
-    "static/js/main.5eadb74e.js"
+    "static/css/main.b1c0efd9.css",
+    "static/js/main.19e5d02b.js"
   ]
 }
