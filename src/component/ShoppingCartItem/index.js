@@ -53,7 +53,7 @@ const ShoppingCartItem = ({ item: { product, quantity } }) => {
 						{new Intl.NumberFormat("en-GB", {
 							style: "currency",
 							currency: product?.currency || "NGN",
-						}).format(parseInt(product.amount))}
+						}).format(parseInt(product.amount) * quantity)}
 					</p>
 				</div>
 			</div>
