@@ -12,22 +12,7 @@ const api = axios.create({
 	},
 });
 
-api.interceptors.response.use(
-	(response) => response.data,
-	null
-	// (error) => {
-	// 	if (
-	// 		error.response.status === 401 ||
-	// 		error.response.data.message === "401 Unauthorized"
-	// 	) {
-	// 		localStorage.removeItem("token");
-	// 		localStorage.removeItem("user");
-	// 		// window.location.reload();
-	// 	} else {
-	// 		// fireSwalError(error.response.data);
-	// 	}
-	// }
-);
+api.interceptors.response.use((response) => response.data, null);
 
 export const getMerchant = (id, page) =>
 	api.get(`/product/merchantStore`, {
@@ -39,3 +24,8 @@ export const getMerchant = (id, page) =>
 
 export const getProductDetails = (id) =>
 	api.get(`/product/getProduct?productID=${id}`);
+
+export const preCheckout = (data) => api.post("/order/preCheckout", data);
+
+export const getStorePickupAddress = () =>
+	api.get("/userAccount/getPickupAddress");

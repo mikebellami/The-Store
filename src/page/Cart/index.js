@@ -1,10 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import { ShoppingCartItem } from "../../component";
 import { useCartContext } from "../../context/cartContext";
 import styles from "./cart.module.css";
 
 const Cart = () => {
 	const { state, price } = useCartContext();
+	const navigate = useNavigate();
 
 	return (
 		<div className="container">
@@ -41,7 +43,12 @@ const Cart = () => {
 									}).format(price)}
 								</p>
 							</div>
-							<button className={styles.btn}>Proceed to Checkout</button>
+							<button
+								className={styles.btn}
+								onClick={() => navigate("/payment")}
+							>
+								Proceed to Checkout
+							</button>
 						</div>
 					</div>
 				</div>

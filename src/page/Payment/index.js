@@ -17,35 +17,82 @@ import {
 import styles from "./payment.module.css";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import { useCartContext } from "../../context/cartContext";
+import { getStorePickupAddress, preCheckout } from "../../api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const Payment = () => {
-	const [currentStep, setCurrentStep] = useState("a");
+	const { state, price } = useCartContext();
+	const [currentStep, setCurrentStep] = useState("c");
+	const [deliveryMethod, setDeliveryMethod] = useState("");
+	const [preCheckoutResponse, setPreCheckoutResponse] = useState(null);
+	const [deliveryFee, setDeliveryFee] = useState(0);
+
+	const { isLoading, mutate } = useMutation(preCheckout, {
+		onSuccess: (data) => {
+			console.log(data);
+			setPreCheckoutResponse(data);
+			setCurrentStep("b");
+		},
+	});
+
+	const { data } = useQuery({
+		queryKey: ["pickupAddress"],
+		queryFn: getStorePickupAddress,
+		enabled: !!deliveryMethod && deliveryMethod === "Pickup",
+		onSuccess: (data) => console.log(data),
+	});
 
 	const deliveryInformationInitialValues = {
-		fullname: "",
+		name: "",
 		email: "",
 		phone: "",
-		deliveryMethod: "",
-		deliveryCompany: "",
-		address: "",
+		delivery_type: "",
+		// deliveryCompany: "",
+		street: "",
 		city: "",
 		state: "",
-		"zip-code": "",
+		postal_code: "",
+		cart: state.cart.map(({ product, quantity }) => ({
+			productID: product.id,
+			quantity,
+		})),
 	};
 	const deliveryInformationValidationSchema = Yup.object().shape({
 		email: Yup.string()
 			.email("Please provide a valid email")
 			.required("Please provide an email"),
-		fullname: Yup.string().required("Please provide a fullname"),
+		name: Yup.string().required("Please provide a name"),
 		phone: Yup.string()
 			.length(11, "Please provide a valid phone number")
 			.required("Please provide a phone number"),
-		deliveryMethod: Yup.string().required("Please provide a delivery method"),
-		deliveryCompany: Yup.string().required("Please provide a delivery comapny"),
-		address: Yup.string().required("Please provide your delivery address"),
-		city: Yup.string().required("Please provide your city"),
-		state: Yup.string().required("Please provide your state"),
-		"zip-code": Yup.string().required("Please provide your zip-code"),
+		delivery_type: Yup.string()
+			.required("Please provide a delivery method")
+			.oneOf(["Pickup", "Delivery"]),
+		// deliveryCompany: Yup.string().required("Please provide a delivery comapny"),
+		street: Yup.string().when("delivery_type", {
+			is: "Delivery",
+			then: Yup.string().required("Please provide your delivery street"),
+		}),
+		city: Yup.string().when("delivery_type", {
+			is: "Delivery",
+			then: Yup.string().required("Please provide your city"),
+		}),
+		state: Yup.string().when("delivery_type", {
+			is: "Delivery",
+			then: Yup.string().required("Please provide your state"),
+		}),
+		postal_code: Yup.string().when("delivery_type", {
+			is: "Delivery",
+			then: Yup.string().required("Please provide your postal_code"),
+		}),
+	});
+
+	const deliveryTypeInitialValues = {
+		courier: "",
+	};
+	const deliveryTypeValidationSchema = Yup.object().shape({
+		courier: Yup.string().required("Please select a courier for your delivery"),
 	});
 
 	const paymentMethodInitialValues = {
@@ -77,8 +124,16 @@ const Payment = () => {
 								<Formik
 									initialValues={deliveryInformationInitialValues}
 									validationSchema={deliveryInformationValidationSchema}
-									onSubmit={() => {
-										setCurrentStep("b");
+									onSubmit={(values) => {
+										const data = { ...values };
+										if (data.delivery_type === "Pickup") {
+											const { street, city, state, postal_code, ...data } =
+												values;
+											setDeliveryMethod("Pickup");
+											return mutate(JSON.stringify(data));
+										}
+										setDeliveryMethod("Delivery");
+										mutate(JSON.stringify(data));
 									}}
 								>
 									{({ values, handleSubmit, handleChange }) => (
@@ -88,8 +143,8 @@ const Payment = () => {
 												<CustomInput
 													title="Full Name"
 													onChange={handleChange}
-													name="fullname"
-													value={values.fullname}
+													name="name"
+													value={values.name}
 												/>
 												<CustomInput
 													title="Email Address"
@@ -105,118 +160,75 @@ const Payment = () => {
 												/>
 											</div>
 
-											<div>
-												<h4
-													className={styles.sectionHeader}
-													style={{ marginTop: 25 }}
-												>
-													Delivery Method
-												</h4>
-												<div className="d-flex" style={{ gap: 20 }}>
-													<CustomRadio
-														title="Home Delivery"
-														name="deliveryMethod"
-														id="home"
-														value="home"
-														onChange={handleChange}
-													/>
-													<CustomRadio
-														title="Store Pickup"
-														name="deliveryMethod"
-														id="store"
-														value="store"
-														onChange={handleChange}
-													/>
-												</div>
-												<ErrorMessage
-													component="div"
-													className="text-danger"
-													name="deliveryMethod"
-												/>
-
-												<h4 className={styles.sectionSubHeader}>
-													Select Delivery Company
-												</h4>
+											<h4
+												className={styles.sectionHeader}
+												style={{ marginTop: 25 }}
+											>
+												Delivery Method
+											</h4>
+											<div className="d-flex" style={{ gap: 20 }}>
 												<CustomRadio
-													title={
-														<div className="w-100 d-flex justify-content-between">
-															<p className="m-0">GIG Logistics</p>
-															<p className="m-0">3 Days</p>
-															<p className="m-0">NGN2,000</p>
-														</div>
-													}
-													name="deliveryCompany"
-													id="gig"
-													value="gig"
+													title="Home Delivery"
+													name="delivery_type"
+													id="Delivery"
+													value="Delivery"
 													onChange={handleChange}
 												/>
 												<CustomRadio
-													title={
-														<div className="w-100 d-flex justify-content-between">
-															<p className="m-0">ABC Logistics</p>
-															<p className="m-0">3 Days</p>
-															<p className="m-0">NGN2,000</p>
-														</div>
-													}
-													name="deliveryCompany"
-													id="abc"
-													value="abc"
+													title="Store Pickup"
+													name="delivery_type"
+													id="Pickup"
+													value="Pickup"
 													onChange={handleChange}
-												/>
-												<CustomRadio
-													title={
-														<div className="w-100 d-flex justify-content-between">
-															<p className="m-0">EFG Logistics</p>
-															<p className="m-0">3 Days</p>
-															<p className="m-0">NGN2,000</p>
-														</div>
-													}
-													name="deliveryCompany"
-													id="efg"
-													value="efg"
-													onChange={handleChange}
-												/>
-												<ErrorMessage
-													component="div"
-													className="text-danger"
-													name="deliveryCompany"
 												/>
 											</div>
+											<ErrorMessage
+												component="div"
+												className="text-danger"
+												name="delivery_type"
+											/>
 
-											<div>
-												<h4
-													className={styles.sectionHeader}
-													style={{ marginTop: 25 }}
-												>
-													Delivery Address
-												</h4>
-												<CustomInput
-													title="Address"
-													onChange={handleChange}
-													name="address"
-													value={values.address}
-												/>
-												<CustomInput
-													title="City"
-													onChange={handleChange}
-													name="city"
-													value={values.city}
-												/>
-												<CustomInput
-													title="State"
-													onChange={handleChange}
-													name="state"
-													value={values.state}
-												/>
-												<CustomInput
-													title="Zip Code"
-													onChange={handleChange}
-													name="zip-code"
-													value={values["zip-code"]}
-												/>
-											</div>
+											{values.delivery_type &&
+												values.delivery_type === "Delivery" && (
+													<div>
+														<h4
+															className={styles.sectionHeader}
+															style={{ marginTop: 25 }}
+														>
+															Delivery Address
+														</h4>
+														<CustomInput
+															title="Address"
+															onChange={handleChange}
+															name="street"
+															value={values.street}
+														/>
+														<CustomInput
+															title="City"
+															onChange={handleChange}
+															name="city"
+															value={values.city}
+														/>
+														<CustomInput
+															title="State"
+															onChange={handleChange}
+															name="state"
+															value={values.state}
+														/>
+														<CustomInput
+															title="Zip Code"
+															onChange={handleChange}
+															name="postal_code"
+															value={values["postal_code"]}
+														/>
+													</div>
+												)}
 
-											<button type="submit" className={styles.submit}>
+											<button
+												type="submit"
+												className={styles.submit}
+												disabled={isLoading}
+											>
 												Next: Payment
 											</button>
 										</form>
@@ -229,14 +241,78 @@ const Payment = () => {
 							dangerouslySetExpanded={currentStep === "b"}
 						>
 							<AccordionItemHeading>
-								<AccordionItemButton>2. Payment</AccordionItemButton>
+								<AccordionItemButton>
+									2. Pickup Address / Delivery Company
+								</AccordionItemButton>
+							</AccordionItemHeading>
+							<AccordionItemPanel>
+								<Formik
+									initialValues={deliveryTypeInitialValues}
+									validationSchema={deliveryTypeValidationSchema}
+									onSubmit={() => {
+										setCurrentStep("c");
+									}}
+								>
+									{({ handleSubmit, handleChange }) => (
+										<form onSubmit={handleSubmit}>
+											<div>
+												<h4 className={styles.sectionHeader}>
+													Select Delivery Company
+												</h4>
+
+												{preCheckoutResponse?.shipmentRates?.ratesDetails?.couriers?.map(
+													(courier, index) => (
+														<CustomRadio
+															key={index}
+															title={
+																<div className="w-100">
+																	<p className="m-0">{courier.courier_name}</p>
+																	<p className="m-0">{courier.delivery_eta}</p>
+																	<p className="m-0">
+																		{new Intl.NumberFormat("en-GB", {
+																			style: "currency",
+																			currency: courier.currency,
+																		}).format(parseInt(courier.total))}
+																	</p>
+																</div>
+															}
+															name="courier"
+															id={courier.courier_id}
+															value={courier.courier_id}
+															onChange={(event) => {
+																handleChange(event);
+																setDeliveryFee(courier.total);
+															}}
+														/>
+													)
+												)}
+												<ErrorMessage
+													component="div"
+													className="text-danger"
+													name="courier"
+												/>
+											</div>
+											<button type="submit" className={styles.submit}>
+												Next: Payment
+											</button>
+										</form>
+									)}
+								</Formik>
+							</AccordionItemPanel>
+						</AccordionItem>
+						<AccordionItem
+							uuid="c"
+							dangerouslySetExpanded={currentStep === "c"}
+						>
+							<AccordionItemHeading>
+								<AccordionItemButton>3. Payment</AccordionItemButton>
 							</AccordionItemHeading>
 							<AccordionItemPanel>
 								<Formik
 									initialValues={paymentMethodInitialValues}
 									validationSchema={paymentMethodValidationSchema}
 									onSubmit={() => {
-										setCurrentStep("c");
+										setCurrentStep("d");
 									}}
 								>
 									{({ values, handleSubmit, handleChange }) => (
@@ -263,11 +339,11 @@ const Payment = () => {
 							</AccordionItemPanel>
 						</AccordionItem>
 						<AccordionItem
-							uuid="c"
-							dangerouslySetExpanded={currentStep === "c"}
+							uuid="d"
+							dangerouslySetExpanded={currentStep === "d"}
 						>
 							<AccordionItemHeading>
-								<AccordionItemButton>3. Confirmation</AccordionItemButton>
+								<AccordionItemButton>4. Confirmation</AccordionItemButton>
 							</AccordionItemHeading>
 							<AccordionItemPanel>
 								<div
@@ -279,11 +355,9 @@ const Payment = () => {
 									</Link>
 								</div>
 								<div className={`${styles.bb} pb-4`}>
-									{Array(3)
-										.fill(" ")
-										.map(() => (
-											<ProductInfo />
-										))}
+									{state?.cart?.map((item, index) => (
+										<ProductInfo item={item} key={index} />
+									))}
 								</div>
 								<div className={styles.feesContainer}>
 									<div className={styles.feesDescription}>
@@ -342,8 +416,8 @@ const Payment = () => {
 						</AccordionItem>
 					</Accordion>
 				</div>
-				{currentStep !== "c" && (
-					<div className="col-lg-6">
+				{currentStep !== "d" && (
+					<div className="col-lg-6 mt-5 mt-sm-5 mt-lg-0">
 						<div
 							className={`d-flex justify-content-between align-items-center ${styles.bb} pb-4 mb-5`}
 						>
@@ -352,31 +426,60 @@ const Payment = () => {
 								Edit
 							</Link>
 						</div>
-						<div className={`${styles.bb} pb-4`}>
-							{Array(3)
-								.fill(" ")
-								.map(() => (
-									<ProductInfo />
-								))}
+						<div className={`${styles.bb} ${styles.products} pb-4`}>
+							{state?.cart?.map((item, index) => (
+								<ProductInfo item={item} key={index} />
+							))}
 						</div>
 						<div className={styles.feesContainer}>
 							<div className={styles.feesDescription}>
-								<p>Shipping</p>
+								<p>Cart Price</p>
 								<p>
-									{new Intl.NumberFormat("en-US", {
+									{new Intl.NumberFormat("en-GB", {
 										style: "currency",
-										currency: "USD",
-									}).format(12)}
+										currency: "NGN",
+									}).format(price)}
 								</p>
 							</div>
+							{!!preCheckoutResponse?.cart?.pepperestfees && (
+								<div className={styles.feesDescription}>
+									<p>Pepperest Fees</p>
+									<p>
+										{new Intl.NumberFormat("en-GB", {
+											style: "currency",
+											currency: "NGN",
+										}).format(
+											parseFloat(preCheckoutResponse?.cart?.pepperestfees)
+										)}
+									</p>
+								</div>
+							)}
+							{!!deliveryFee && (
+								<div className={styles.feesDescription}>
+									<p>Shipping</p>
+									<p>
+										{new Intl.NumberFormat("en-GB", {
+											style: "currency",
+											currency: "NGN",
+										}).format(parseFloat(deliveryFee))}
+									</p>
+								</div>
+							)}
+
 							<div className={styles.feesDescription}>
 								<p>Subtotal</p>
 								<p>
 									<strong>
-										{new Intl.NumberFormat("en-US", {
+										{new Intl.NumberFormat("en-GB", {
 											style: "currency",
-											currency: "USD",
-										}).format(15)}
+											currency: "NGN",
+										}).format(
+											price +
+												parseFloat(
+													preCheckoutResponse?.cart?.pepperestfees || 0
+												) +
+												parseFloat(deliveryFee || 0)
+										)}
 									</strong>
 								</p>
 							</div>
