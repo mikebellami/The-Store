@@ -4,13 +4,7 @@ import { CartSVG } from "../../assets";
 import { useCartContext } from "../../context/cartContext";
 import { Link, useMatch } from "react-router-dom";
 
-const nonRoutes = [
-	"/confirmation",
-	"/account",
-	"/cart",
-	"/payment",
-	"/tracker",
-];
+const nonRoutes = ["/confirm", "/account", "/cart", "/payment", "/tracker"];
 
 const CartIcon = () => {
 	const {

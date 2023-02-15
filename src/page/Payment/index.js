@@ -12,29 +12,45 @@ import {
 	CustomRadio,
 	CustomInput,
 	ProductInfo,
-	PaymentCard,
+	// PaymentCard,
 } from "../../component";
 import styles from "./payment.module.css";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/cartContext";
-import { getStorePickupAddress, preCheckout } from "../../api";
+import { getStorePickupAddress, placeOrder, preCheckout } from "../../api";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { setToStorage } from "../../constants";
 
 const Payment = () => {
 	const { state, price } = useCartContext();
-	const [currentStep, setCurrentStep] = useState("c");
+	const [currentStep, setCurrentStep] = useState("a");
 	const [deliveryMethod, setDeliveryMethod] = useState("");
 	const [preCheckoutResponse, setPreCheckoutResponse] = useState(null);
-	const [deliveryFee, setDeliveryFee] = useState(0);
+	const [placeOrderResponse, setPlaceOrderResponse] = useState(null);
+	const [selectedCourier, setSelectedCourier] = useState(null);
 
-	const { isLoading, mutate } = useMutation(preCheckout, {
-		onSuccess: (data) => {
-			console.log(data);
-			setPreCheckoutResponse(data);
-			setCurrentStep("b");
-		},
-	});
+	const { isLoading: preCheckOutLoading, mutate: preCheckOutFN } = useMutation(
+		preCheckout,
+		{
+			onSuccess: (data) => {
+				console.log(data);
+				setPreCheckoutResponse(data);
+				setCurrentStep("b");
+			},
+		}
+	);
+
+	const { isLoading: placeOrderLoading, mutate: placeOrderFN } = useMutation(
+		placeOrder,
+		{
+			onSuccess: (data) => {
+				console.log(data);
+				setPlaceOrderResponse(data);
+				setCurrentStep("c");
+			},
+		}
+	);
 
 	const { data } = useQuery({
 		queryKey: ["pickupAddress"],
@@ -95,13 +111,6 @@ const Payment = () => {
 		courier: Yup.string().required("Please select a courier for your delivery"),
 	});
 
-	const paymentMethodInitialValues = {
-		paymentMethod: "",
-	};
-	const paymentMethodValidationSchema = Yup.object().shape({
-		paymentMethod: Yup.string().required("Please provide an payment method"),
-	});
-
 	return (
 		<div className="container">
 			<div className="row pt-5">
@@ -130,10 +139,10 @@ const Payment = () => {
 											const { street, city, state, postal_code, ...data } =
 												values;
 											setDeliveryMethod("Pickup");
-											return mutate(JSON.stringify(data));
+											return preCheckOutFN(JSON.stringify(data));
 										}
 										setDeliveryMethod("Delivery");
-										mutate(JSON.stringify(data));
+										preCheckOutFN(JSON.stringify(data));
 									}}
 								>
 									{({ values, handleSubmit, handleChange }) => (
@@ -227,7 +236,7 @@ const Payment = () => {
 											<button
 												type="submit"
 												className={styles.submit}
-												disabled={isLoading}
+												disabled={preCheckOutLoading}
 											>
 												Next: Payment
 											</button>
@@ -249,8 +258,40 @@ const Payment = () => {
 								<Formik
 									initialValues={deliveryTypeInitialValues}
 									validationSchema={deliveryTypeValidationSchema}
-									onSubmit={() => {
-										setCurrentStep("c");
+									onSubmit={(values) => {
+										const data = {
+											customerID: preCheckoutResponse?.cart?.customerID,
+											cart_id: preCheckoutResponse?.cart?.cart_id,
+											currency_id: 1,
+											address_id: preCheckoutResponse?.address?.address_id,
+											paymentProvider: "seerbit",
+											courier_id: values.courier,
+											request_token:
+												preCheckoutResponse?.shipmentRates?.ratesDetails
+													?.request_token,
+											estimated_days: selectedCourier?.delivery_eta,
+											charge_amount:
+												price +
+												parseFloat(
+													preCheckoutResponse?.cart?.pepperestfees || 0
+												) +
+												parseFloat(selectedCourier?.total || 0),
+											service_code: selectedCourier?.service_code,
+											charge_currency: "NGN",
+										};
+
+										const token = preCheckoutResponse?.token?.access_token;
+										setToStorage("token", token);
+										setToStorage(
+											"info",
+											JSON.stringify({
+												pepperestfees: preCheckoutResponse?.cart?.pepperestfees,
+												courierprice: selectedCourier?.total,
+												address: preCheckoutResponse?.address,
+											})
+										);
+
+										placeOrderFN({ data, token });
 									}}
 								>
 									{({ handleSubmit, handleChange }) => (
@@ -281,7 +322,7 @@ const Payment = () => {
 															value={courier.courier_id}
 															onChange={(event) => {
 																handleChange(event);
-																setDeliveryFee(courier.total);
+																setSelectedCourier(courier);
 															}}
 														/>
 													)
@@ -292,8 +333,12 @@ const Payment = () => {
 													name="courier"
 												/>
 											</div>
-											<button type="submit" className={styles.submit}>
-												Next: Payment
+											<button
+												type="submit"
+												className={styles.submit}
+												disabled={placeOrderLoading}
+											>
+												Next: Confirmation
 											</button>
 										</form>
 									)}
@@ -305,45 +350,7 @@ const Payment = () => {
 							dangerouslySetExpanded={currentStep === "c"}
 						>
 							<AccordionItemHeading>
-								<AccordionItemButton>3. Payment</AccordionItemButton>
-							</AccordionItemHeading>
-							<AccordionItemPanel>
-								<Formik
-									initialValues={paymentMethodInitialValues}
-									validationSchema={paymentMethodValidationSchema}
-									onSubmit={() => {
-										setCurrentStep("d");
-									}}
-								>
-									{({ values, handleSubmit, handleChange }) => (
-										<form onSubmit={handleSubmit}>
-											<h4 className={styles.sectionHeader}>Payment Method</h4>
-											<CustomRadio
-												title="Pay with Seerbit"
-												name="paymentMethod"
-												id="seerbit"
-												value="seerbit"
-												onChange={handleChange}
-											/>
-											<ErrorMessage
-												component="div"
-												className="text-danger"
-												name="paymentMethod"
-											/>
-											<button type="submit" className={styles.submit}>
-												Next: Confirmation
-											</button>
-										</form>
-									)}
-								</Formik>
-							</AccordionItemPanel>
-						</AccordionItem>
-						<AccordionItem
-							uuid="d"
-							dangerouslySetExpanded={currentStep === "d"}
-						>
-							<AccordionItemHeading>
-								<AccordionItemButton>4. Confirmation</AccordionItemButton>
+								<AccordionItemButton>3. Confirmation</AccordionItemButton>
 							</AccordionItemHeading>
 							<AccordionItemPanel>
 								<div
@@ -361,22 +368,53 @@ const Payment = () => {
 								</div>
 								<div className={styles.feesContainer}>
 									<div className={styles.feesDescription}>
-										<p>Shipping</p>
+										<p>Cart Price</p>
 										<p>
-											{new Intl.NumberFormat("en-US", {
+											{new Intl.NumberFormat("en-GB", {
 												style: "currency",
-												currency: "USD",
-											}).format(12)}
+												currency: "NGN",
+											}).format(price)}
 										</p>
 									</div>
+									{!!preCheckoutResponse?.cart?.pepperestfees && (
+										<div className={styles.feesDescription}>
+											<p>Pepperest Fees</p>
+											<p>
+												{new Intl.NumberFormat("en-GB", {
+													style: "currency",
+													currency: "NGN",
+												}).format(
+													parseFloat(preCheckoutResponse?.cart?.pepperestfees)
+												)}
+											</p>
+										</div>
+									)}
+									{!!selectedCourier && (
+										<div className={styles.feesDescription}>
+											<p>Shipping</p>
+											<p>
+												{new Intl.NumberFormat("en-GB", {
+													style: "currency",
+													currency: "NGN",
+												}).format(parseFloat(selectedCourier?.total))}
+											</p>
+										</div>
+									)}
+
 									<div className={styles.feesDescription}>
 										<p>Subtotal</p>
 										<p>
 											<strong>
-												{new Intl.NumberFormat("en-US", {
+												{new Intl.NumberFormat("en-GB", {
 													style: "currency",
-													currency: "USD",
-												}).format(15)}
+													currency: "NGN",
+												}).format(
+													price +
+														parseFloat(
+															preCheckoutResponse?.cart?.pepperestfees || 0
+														) +
+														parseFloat(selectedCourier?.total || 0)
+												)}
 											</strong>
 										</p>
 									</div>
@@ -398,25 +436,26 @@ const Payment = () => {
 
 								<div className="mb-4">
 									<p className={`${styles.deliveryBody} ${styles.bb}`}>
-										123 East North Street, South Bend, West Coast,
-										<br />
-										Main City,
-										<br /> Central
-										<br />
-										<strong>State Phone: (+123-8293-8922-0)</strong>
+										{preCheckoutResponse?.address?.address},<br />
+										{preCheckoutResponse?.address?.city},<br />
+										{preCheckoutResponse?.address?.country},<br />
+										<strong>
+											Phone: ({preCheckoutResponse?.address?.phone})
+										</strong>
 									</p>
 								</div>
 
-								<PaymentCard />
-
-								<button type="submit" className={styles.submit}>
+								<Link
+									to={placeOrderResponse?.paymentUrl || "/"}
+									className={styles.submit}
+								>
 									Confirm and Pay
-								</button>
+								</Link>
 							</AccordionItemPanel>
 						</AccordionItem>
 					</Accordion>
 				</div>
-				{currentStep !== "d" && (
+				{currentStep !== "c" && (
 					<div className="col-lg-6 mt-5 mt-sm-5 mt-lg-0">
 						<div
 							className={`d-flex justify-content-between align-items-center ${styles.bb} pb-4 mb-5`}
@@ -454,14 +493,14 @@ const Payment = () => {
 									</p>
 								</div>
 							)}
-							{!!deliveryFee && (
+							{!!selectedCourier && (
 								<div className={styles.feesDescription}>
 									<p>Shipping</p>
 									<p>
 										{new Intl.NumberFormat("en-GB", {
 											style: "currency",
 											currency: "NGN",
-										}).format(parseFloat(deliveryFee))}
+										}).format(parseFloat(selectedCourier?.total))}
 									</p>
 								</div>
 							)}
@@ -478,7 +517,7 @@ const Payment = () => {
 												parseFloat(
 													preCheckoutResponse?.cart?.pepperestfees || 0
 												) +
-												parseFloat(deliveryFee || 0)
+												parseFloat(selectedCourier?.total || 0)
 										)}
 									</strong>
 								</p>

@@ -41,6 +41,11 @@
     margin-top: 30px;
 }
 
+.submit:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
 .link {
     font-style: normal;
     font-weight: 500;

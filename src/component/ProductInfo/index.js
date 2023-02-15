@@ -27,7 +27,7 @@ const ProductInfo = ({ item }) => {
 						{new Intl.NumberFormat("en-GB", {
 							style: "currency",
 							currency: item?.product?.currency || "NGN",
-						}).format(parseInt(item?.product?.amount))}
+						}).format(parseInt(item?.product?.amount) * item?.quantity)}
 					</p>
 				</div>
 			</div>

@@ -21,12 +21,12 @@ import {
 function App() {
 	return (
 		<CartProvider>
-			<Router basename="/">
+			<Router basename="/The-Store">
 				<Routes>
 					<Route element={<AppWrapper />}>
 						<Route path="/:id" exact element={<Home />} />
 						<Route path="/product/:id" element={<Product />} />
-						<Route path="/confirmation" element={<Confirmation />} />
+						<Route path="/confirm" element={<Confirmation />} />
 						<Route path="/account" element={<Account />} />
 						<Route path="/cart" element={<Cart />} />
 						<Route path="/payment" element={<Payment />} />

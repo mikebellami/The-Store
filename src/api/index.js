@@ -27,5 +27,24 @@ export const getProductDetails = (id) =>
 
 export const preCheckout = (data) => api.post("/order/preCheckout", data);
 
+export const placeOrder = ({ data, token }) => {
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+	return api.post("/order/placeOrder", data, config);
+};
+
 export const getStorePickupAddress = () =>
 	api.get("/userAccount/getPickupAddress");
+
+export const verifyToken = ({ reference, token }) =>
+	api.get("/order/payment/callback", {
+		params: {
+			reference,
+		},
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
