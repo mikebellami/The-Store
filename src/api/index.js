@@ -14,7 +14,7 @@ const api = axios.create({
 
 api.interceptors.response.use((response) => response.data, null);
 
-export const getMerchant = (id, page) =>
+export const getMerchant = (id, page = 1) =>
 	api.get(`/product/merchantStore`, {
 		params: {
 			merchantCode: id,

@@ -14,8 +14,8 @@ const Cart = () => {
 				<div className="row">
 					<div className="col-lg-6 ">
 						<h3 className={styles.heading}>Shopping cart</h3>
-						{state.cart.map((item) => (
-							<ShoppingCartItem item={item} />
+						{state.cart.map((item, index) => (
+							<ShoppingCartItem item={item} key={index} />
 						))}
 					</div>
 					<div className="col-lg-1"></div>

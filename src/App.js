@@ -24,7 +24,7 @@ function App() {
 			<Router basename="/The-Store">
 				<Routes>
 					<Route element={<AppWrapper />}>
-						<Route path="/:id" exact element={<Home />} />
+						<Route path="/:merchantID" exact element={<Home />} />
 						<Route path="/product/:id" element={<Product />} />
 						<Route path="/confirm" element={<Confirmation />} />
 						<Route path="/account" element={<Account />} />

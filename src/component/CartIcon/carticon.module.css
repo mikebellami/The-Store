@@ -7,7 +7,30 @@
     justify-content: center;
     align-items: center;
     position: fixed;
-    right: 210px;
-    top: 200px;
+    right: 5%;
+    top: 10%;
     z-index: 100;
+}
+
+.number {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #FE8F01;
+    position: absolute;
+    left: 60%;
+    bottom: 60%;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+    color: #FFFFFF;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./home.module.css";
 import { Bg, Product } from "../../assets";
 import { IoSearchOutline } from "react-icons/io5";
@@ -8,17 +8,25 @@ import { getMerchant } from "../../api";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
+import { setToStorage } from "../../constants";
 
 const Home = () => {
-	const { id } = useParams();
+	const { merchantID } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
 
 	const page = searchParams.get("page");
 
 	const { data } = useQuery({
-		queryKey: ["mechart", id, page],
-		queryFn: () => getMerchant(id, page),
+		queryKey: ["mechart", merchantID, page],
+		queryFn: () => getMerchant(merchantID, page),
 	});
+
+	useEffect(() => {
+		return () => {
+			setToStorage("storeID", merchantID);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const handlePageClick = (event) => {
 		searchParams.set("page", event.selected + 1);
@@ -92,6 +100,7 @@ const Home = () => {
 						previousClassName="page-item"
 						nextLinkClassName="page-link"
 						previousLinkClassName="page-link"
+						forcePage={parseInt(page) - 1}
 					/>
 				</div>
 			</div>

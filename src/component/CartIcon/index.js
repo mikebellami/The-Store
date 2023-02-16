@@ -21,7 +21,10 @@ const CartIcon = () => {
 
 	return (
 		<Link to="/cart" className={styles.wrapper}>
-			<CartSVG />
+			<div style={{ position: "relative" }}>
+				<CartSVG />
+				<div className={styles.number}>{cart?.length}</div>
+			</div>
 		</Link>
 	);
 };
