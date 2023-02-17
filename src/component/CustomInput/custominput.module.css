@@ -92,13 +92,15 @@
 	font-size: 1.6rem;
 	line-height: 24px;
 	color: #667085;
-    margin: 5px 0;
-    resize:none;
+	margin: 5px 0;
+	resize: none;
 }
 
-.textArea:focus, .select:focus,.textInput:focus{
-    border-color: var(--primary-color) !important;
-    outline: 0px !important;
-  -webkit-appearance: none;
-  box-shadow: none !important;
+.textArea:focus,
+.select:focus,
+.textInput:focus {
+	border-color: var(--primary-color) !important;
+	outline: 0px !important;
+	-webkit-appearance: none;
+	box-shadow: none !important;
 }

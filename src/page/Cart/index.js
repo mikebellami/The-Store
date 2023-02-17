@@ -11,7 +11,7 @@ const Cart = () => {
 	return (
 		<div className="container">
 			{!!state.cart.length ? (
-				<div className="row">
+				<div className="row my-auto">
 					<div className="col-lg-6 ">
 						<h3 className={styles.heading}>Shopping cart</h3>
 						{state.cart.map((item, index) => (

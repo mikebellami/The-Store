@@ -5,7 +5,7 @@
 .hero-img {
     background-size: cover;
     background-repeat: no-repeat;
-    height: 40vh;
+    height: 25vh;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -79,11 +79,12 @@
 .serach-container {
     background: #fbfbfb;
     border: 1px solid var(--primary-color);
-    border-radius: 20px;
+    border-radius: 5px;
     height: 52px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width:70% ;
 }
 
 .search-icon {
@@ -98,18 +99,19 @@
     border: none;
     font-size: 16px;
     background: #fbfbfb;
+    outline: none;
 }
 
 .search-btn {
     background-color: var(--primary-color);
-    border-radius: 20px;
+    border-radius: 5px;
     border: none;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
     color: #ffffff;
-    width: 94px;
+    width: 110px;
     height: 52px;
     margin-left: 5px;
 }
@@ -126,7 +128,7 @@
 }
 
 .products-container {
-    padding: 100px 0 100px 0;
+    padding: 70px 0 100px 0;
 }
 
 .products-header {
@@ -171,9 +173,12 @@
         width: 90%;
     }
 
+    .store-initails {
+        margin-top: -70px;
+        width: 140px;
+        height: 140px;
+    }
     .store-initails h1 {
-        height: 160px;
-        width: 160px;
         font-size: 54px;
     }
 
@@ -192,7 +197,9 @@
 
 @media screen and (max-width: 425px) {
     .store-initails {
-        margin-top: -80px;
+        margin-top: -60px;
+        width: 110px;
+        height: 110px;
     }
 
     .store-initails h1 {
@@ -227,9 +234,10 @@
     align-items: center;
     border: 1px solid red;
   } */
-    /* .serach-container{
-      max-width: 100%;
-    } */
+    .serach-container{
+      width: 100%;
+    }
+
     .search-input {
         width: 180px;
     }
