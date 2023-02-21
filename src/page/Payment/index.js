@@ -46,6 +46,7 @@ const Payment = () => {
 		{
 			onSuccess: (data) => {
 				console.log(data);
+				setToStorage("merchantID", data?.order?.merchant_id);
 				setPlaceOrderResponse(data);
 				setCurrentStep("c");
 			},
@@ -54,10 +55,17 @@ const Payment = () => {
 
 	const { data } = useQuery({
 		queryKey: ["pickupAddress"],
-		queryFn: getStorePickupAddress,
-		enabled: !!deliveryMethod && deliveryMethod === "Pickup",
-		onSuccess: (data) => console.log(data),
+		queryFn: () =>
+			getStorePickupAddress({
+				merchantID:
+					preCheckoutResponse?.cart?.items[0]?.product_info?.merchant_id,
+				token: preCheckoutResponse?.token?.access_token,
+			}),
+		enabled:
+			!!deliveryMethod && deliveryMethod === "Pickup" && !!preCheckoutResponse,
 	});
+
+	console.log(data);
 
 	const deliveryInformationInitialValues = {
 		name: "",
@@ -255,94 +263,139 @@ const Payment = () => {
 								</AccordionItemButton>
 							</AccordionItemHeading>
 							<AccordionItemPanel>
-								<Formik
-									initialValues={deliveryTypeInitialValues}
-									validationSchema={deliveryTypeValidationSchema}
-									onSubmit={(values) => {
-										const data = {
-											customerID: preCheckoutResponse?.cart?.customerID,
-											cart_id: preCheckoutResponse?.cart?.cart_id,
-											currency_id: 1,
-											address_id: preCheckoutResponse?.address?.address_id,
-											paymentProvider: "seerbit",
-											courier_id: values.courier,
-											request_token:
-												preCheckoutResponse?.shipmentRates?.ratesDetails
-													?.request_token,
-											estimated_days: selectedCourier?.delivery_eta,
-											charge_amount:
-												price +
-												parseFloat(
-													preCheckoutResponse?.cart?.pepperestfees || 0
-												) +
-												parseFloat(selectedCourier?.total || 0),
-											service_code: selectedCourier?.service_code,
-											charge_currency: "NGN",
-										};
+								{deliveryMethod === "Pickup" ? (
+									<Formik
+										onSubmit={() => {
+											const data = {
+												customerID: preCheckoutResponse?.cart?.customerID,
+												cart_id: preCheckoutResponse?.cart?.cart_id,
+												currency_id: 1,
+												paymentProvider: "seerbit",
+												charge_currency: "NGN",
+											};
 
-										const token = preCheckoutResponse?.token?.access_token;
-										setToStorage("token", token);
-										setToStorage(
-											"info",
-											JSON.stringify({
-												pepperestfees: preCheckoutResponse?.cart?.pepperestfees,
-												courierprice: selectedCourier?.total,
-												address: preCheckoutResponse?.address,
-											})
-										);
+											const token = preCheckoutResponse?.token?.access_token;
+											setToStorage("token", token);
+											setToStorage(
+												"info",
+												JSON.stringify({
+													pepperestfees:
+														preCheckoutResponse?.cart?.pepperestfees,
+													courierprice: selectedCourier?.total,
+													address: preCheckoutResponse?.address,
+												})
+											);
 
-										placeOrderFN({ data, token });
-									}}
-								>
-									{({ handleSubmit, handleChange }) => (
-										<form onSubmit={handleSubmit}>
-											<div>
-												<h4 className={styles.sectionHeader}>
-													Select Delivery Company
-												</h4>
+											placeOrderFN({ data, token });
+										}}
+									>
+										{({ handleSubmit }) => (
+											<form onSubmit={handleSubmit}>
+												<div>
+													<h4 className={styles.sectionHeader}>
+														Pickup Address
+													</h4>
+												</div>
+												<button
+													type="submit"
+													className={styles.submit}
+													disabled={placeOrderLoading}
+												>
+													Next: Confirmation
+												</button>
+											</form>
+										)}
+									</Formik>
+								) : (
+									<Formik
+										initialValues={deliveryTypeInitialValues}
+										validationSchema={deliveryTypeValidationSchema}
+										onSubmit={(values) => {
+											const data = {
+												customerID: preCheckoutResponse?.cart?.customerID,
+												cart_id: preCheckoutResponse?.cart?.cart_id,
+												currency_id: 1,
+												address_id: preCheckoutResponse?.address?.address_id,
+												paymentProvider: "seerbit",
+												courier_id: values.courier,
+												request_token:
+													preCheckoutResponse?.shipmentRates?.ratesDetails
+														?.request_token,
+												estimated_days: selectedCourier?.delivery_eta,
+												charge_amount: parseFloat(selectedCourier?.total || 0),
+												service_code: selectedCourier?.service_code,
+												charge_currency: "NGN",
+											};
 
-												{preCheckoutResponse?.shipmentRates?.ratesDetails?.couriers?.map(
-													(courier, index) => (
-														<CustomRadio
-															key={index}
-															title={
-																<div className="w-100">
-																	<p className="m-0">{courier.courier_name}</p>
-																	<p className="m-0">{courier.delivery_eta}</p>
-																	<p className="m-0">
-																		{new Intl.NumberFormat("en-GB", {
-																			style: "currency",
-																			currency: courier.currency,
-																		}).format(parseInt(courier.total))}
-																	</p>
-																</div>
-															}
-															name="courier"
-															id={courier.courier_id}
-															value={courier.courier_id}
-															onChange={(event) => {
-																handleChange(event);
-																setSelectedCourier(courier);
-															}}
-														/>
-													)
-												)}
-												<ErrorMessage
-													component="div"
-													className="text-danger"
-													name="courier"
-												/>
-											</div>
-											<button
-												type="submit"
-												className={styles.submit}
-												disabled={placeOrderLoading}
-											>
-												Next: Confirmation
-											</button>
-										</form>
-									)}
-								</Formik>
+											const token = preCheckoutResponse?.token?.access_token;
+											setToStorage("token", token);
+											setToStorage(
+												"info",
+												JSON.stringify({
+													pepperestfees:
+														preCheckoutResponse?.cart?.pepperestfees,
+													courierprice: selectedCourier?.total,
+													address: preCheckoutResponse?.address,
+												})
+											);
+
+											placeOrderFN({ data, token });
+										}}
+									>
+										{({ handleSubmit, handleChange }) => (
+											<form onSubmit={handleSubmit}>
+												<div>
+													<h4 className={styles.sectionHeader}>
+														Select Delivery Company
+													</h4>
+
+													{preCheckoutResponse?.shipmentRates?.ratesDetails?.couriers?.map(
+														(courier, index) => (
+															<CustomRadio
+																key={index}
+																title={
+																	<div className="w-100">
+																		<p className="m-0">
+																			{courier.courier_name}
+																		</p>
+																		<p className="m-0">
+																			{courier.delivery_eta}
+																		</p>
+																		<p className="m-0">
+																			{new Intl.NumberFormat("en-GB", {
+																				style: "currency",
+																				currency: courier.currency,
+																			}).format(parseInt(courier.total))}
+																		</p>
+																	</div>
+																}
+																name="courier"
+																id={courier.courier_id}
+																value={courier.courier_id}
+																onChange={(event) => {
+																	handleChange(event);
+																	setSelectedCourier(courier);
+																}}
+															/>
+														)
+													)}
+													<ErrorMessage
+														component="div"
+														className="text-danger"
+														name="courier"
+													/>
+												</div>
+												<button
+													type="submit"
+													className={styles.submit}
+													disabled={placeOrderLoading}
+												>
+													Next: Confirmation
+												</button>
+											</form>
+										)}
+									</Formik>
+								)}
 							</AccordionItemPanel>
 						</AccordionItem>
 						<AccordionItem
