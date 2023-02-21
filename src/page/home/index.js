@@ -1,10 +1,9 @@
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./home.module.css";
 import { Bg, Product } from "../../assets";
 import { IoSearchOutline } from "react-icons/io5";
 import { SlArrowDown } from "react-icons/sl";
-import { Oval } from  'react-loader-spinner'
+import { Oval } from "react-loader-spinner";
 import { ProductCard } from "../../component";
 import { getMerchant } from "../../api";
 import { useParams, useSearchParams } from "react-router-dom";
@@ -17,11 +16,9 @@ const Home = () => {
 	const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
 	const page = searchParams.get("page");
 
-
 	const { data, isLoading } = useQuery({
 		queryKey: ["mechart", merchantID, page],
 		queryFn: () => getMerchant(merchantID, page),
-
 	});
 
 	useEffect(() => {
@@ -35,7 +32,6 @@ const Home = () => {
 		searchParams.set("page", event.selected + 1);
 		setSearchParams(searchParams);
 	};
-
 
 	return (
 		<>
@@ -106,22 +102,22 @@ const Home = () => {
 								))}
 							</div>
 							<ReactPaginate
-							breakLabel="..."
-							nextLabel="&raquo;"
-							onPageChange={handlePageClick}
-							pageRangeDisplayed={5}
-							pageCount={data?.products?.meta?.last_page}
-							previousLabel="&laquo;"
-							renderOnZeroPageCount={null}
-							pageClassName="page-item"
-							className="pagination"
-							pageLinkClassName="page-link"
-							activeClassName="active"
-							nextClassName="page-item"
-							previousClassName="page-item"
-							nextLinkClassName="page-link"
-							previousLinkClassName="page-link"
-							forcePage={parseInt(page) - 1}
+								breakLabel="..."
+								nextLabel="&raquo;"
+								onPageChange={handlePageClick}
+								pageRangeDisplayed={5}
+								pageCount={data?.products?.meta?.last_page}
+								previousLabel="&laquo;"
+								renderOnZeroPageCount={null}
+								pageClassName="page-item"
+								className="pagination"
+								pageLinkClassName="page-link"
+								activeClassName="active"
+								nextClassName="page-item"
+								previousClassName="page-item"
+								nextLinkClassName="page-link"
+								previousLinkClassName="page-link"
+								forcePage={parseInt(page) - 1}
 							/>
 						</div>
 					</div>
