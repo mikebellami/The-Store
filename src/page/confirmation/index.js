@@ -15,6 +15,7 @@ const Confirmation = () => {
 	const [info] = useState(JSON.parse(getFromStorage("info")));
 	const [token] = useState(getFromStorage("token"));
 
+	// eslint-disable-next-line no-unused-vars
 	const { data } = useQuery({
 		queryKey: ["verify-token"],
 		queryFn: () =>
@@ -66,15 +67,17 @@ const Confirmation = () => {
 								}).format(parseFloat(info?.pepperestfees))}
 							</p>
 						</div>
-						<div className="fees-description">
-							<p>Shipping</p>
-							<p>
-								{new Intl.NumberFormat("en-GB", {
-									style: "currency",
-									currency: "NGN",
-								}).format(parseFloat(info?.courierprice))}
-							</p>
-						</div>
+						{!!info?.courierprice && (
+							<div className="fees-description">
+								<p>Shipping</p>
+								<p>
+									{new Intl.NumberFormat("en-GB", {
+										style: "currency",
+										currency: "NGN",
+									}).format(parseFloat(info?.courierprice || 0))}
+								</p>
+							</div>
+						)}
 
 						<div className="fees-description">
 							<p>Subtotal</p>
@@ -93,18 +96,23 @@ const Confirmation = () => {
 						</div>
 					</div>
 
-					<p className="delivery-title">Delivery Address</p>
+					{!!info?.address && (
+						<>
+							<p className="delivery-title">Delivery Address</p>
 
-					<div className="hr"></div>
-					<div className="delivery-container">
-						<p className="delivery-body">
-							{info?.address?.address},<br />
-							{info?.address?.city},<br />
-							{info?.address?.country},<br />
-							<strong>Phone: ({info?.address?.phone})</strong>
-						</p>
-					</div>
-					<span className="hr"></span>
+							<div className="hr"></div>
+							<div className="delivery-container">
+								<p className="delivery-body">
+									{info?.address?.address},<br />
+									{info?.address?.city},<br />
+									{info?.address?.country},<br />
+									<strong>Phone: ({info?.address?.phone})</strong>
+								</p>
+							</div>
+							<span className="hr"></span>
+						</>
+					)}
+
 					<Link to="/" className="order-button" onClick={returnHome}>
 						Return Home
 					</Link>

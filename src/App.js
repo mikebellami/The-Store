@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
 	BrowserRouter as Router,
 	Outlet,
 	Route,
 	Routes,
+	useNavigate,
 } from "react-router-dom";
 import "./App.css";
 import { CartIcon, Footer, Header } from "./component";
-import CartProvider from "./context/cartContext";
+import { getFromStorage } from "./constants";
+import CartProvider, { useCartContext } from "./context/cartContext";
 import {
 	Home,
 	Product,
@@ -26,10 +28,12 @@ function App() {
 					<Route element={<AppWrapper />}>
 						<Route path="/:merchantID" exact element={<Home />} />
 						<Route path="/product/:id" element={<Product />} />
-						<Route path="/confirm" element={<Confirmation />} />
-						<Route path="/account" element={<Account />} />
 						<Route path="/cart" element={<Cart />} />
-						<Route path="/payment" element={<Payment />} />
+						<Route element={<Redirect />}>
+							<Route path="/confirm" element={<Confirmation />} />
+							<Route path="/payment" element={<Payment />} />
+						</Route>
+						<Route path="/account" element={<Account />} />
 						<Route path="/tracker" element={<Tracker />} />
 					</Route>
 				</Routes>
@@ -47,6 +51,20 @@ const AppWrapper = () => {
 			<Footer />
 		</div>
 	);
+};
+
+const Redirect = () => {
+	const {
+		state: { cart },
+	} = useCartContext();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!cart.length) return navigate(`/${getFromStorage("storeID")}`);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	return <Outlet />;
 };
 
 export default App;
