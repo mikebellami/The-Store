@@ -21,8 +21,9 @@ const Confirmation = () => {
 		queryFn: () =>
 			verifyToken({ reference: searchParams.get("reference"), token }),
 		enabled: !!token && !!searchParams.get("reference"),
-		onSuccess: (data) => console.log(data),
 	});
+
+	const storeID = getFromStorage("storeID");
 
 	const returnHome = () => {
 		dispatch({ action: "CLEAR" });
@@ -113,7 +114,11 @@ const Confirmation = () => {
 						</>
 					)}
 
-					<Link to="/" className="order-button" onClick={returnHome}>
+					<Link
+						to={`/${storeID}`}
+						className="order-button"
+						onClick={returnHome}
+					>
 						Return Home
 					</Link>
 				</div>

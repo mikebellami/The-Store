@@ -37,7 +37,6 @@ export const placeOrder = ({ data, token }) => {
 };
 
 export const getStorePickupAddress = ({ token, merchantID }) => {
-	console.log({ token, merchantID });
 	return api.get("/precheckout/getMerchantPickupAddress", {
 		params: {
 			merchantID,

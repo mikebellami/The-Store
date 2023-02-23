@@ -27,7 +27,8 @@
         "slick-carousel": "^1.8.1",
         "sweetalert2": "^11.7.1",
         "web-vitals": "^2.1.4",
-        "yup": "^0.32.11"
+        "yup": "^0.32.11",
+        "yup-phone-lite": "^2.0.1"
     },
     "scripts": {
         "start": "react-scripts start",

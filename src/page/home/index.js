@@ -19,6 +19,9 @@ const Home = () => {
 	const { data, isLoading } = useQuery({
 		queryKey: ["mechart", merchantID, page],
 		queryFn: () => getMerchant(merchantID, page),
+		onSuccess: (data) => {
+			setToStorage("merchantID", data.merchantID);
+		},
 	});
 
 	useEffect(() => {

@@ -85,24 +85,26 @@
 }
 
 .order-button {
-    box-sizing: border-box;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px 18px;
-    gap: 8px;
-    width: 90%;
-    height: 44px;
-    background: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    padding: 15px 18px;
+    background: #5E60CE;
+    border: 1px solid #5E60CE;
     box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
     border-radius: 8px;
-    color: #ffffff;
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 1.6rem;
     line-height: 24px;
+    color: #FFFFFF;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.order-button:hover {
+    text-decoration: none;
+    color: #FFFFFF;
 }
 
 .order-items {

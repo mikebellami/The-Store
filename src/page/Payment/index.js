@@ -16,11 +16,12 @@ import {
 } from "../../component";
 import styles from "./payment.module.css";
 import * as Yup from "yup";
+import "yup-phone-lite";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/cartContext";
 import { getStorePickupAddress, placeOrder, preCheckout } from "../../api";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { setToStorage } from "../../constants";
+import { getFromStorage, setToStorage } from "../../constants";
 
 const Payment = () => {
 	const { state, price } = useCartContext();
@@ -34,7 +35,6 @@ const Payment = () => {
 		preCheckout,
 		{
 			onSuccess: (data) => {
-				console.log(data);
 				setPreCheckoutResponse(data);
 				setCurrentStep("b");
 			},
@@ -45,7 +45,6 @@ const Payment = () => {
 		placeOrder,
 		{
 			onSuccess: (data) => {
-				console.log(data);
 				setToStorage("merchantID", data?.order?.merchant_id);
 				setPlaceOrderResponse(data);
 				setCurrentStep("c");
@@ -53,19 +52,16 @@ const Payment = () => {
 		}
 	);
 
-	const { data } = useQuery({
+	const { data: pickupAddess } = useQuery({
 		queryKey: ["pickupAddress"],
 		queryFn: () =>
 			getStorePickupAddress({
-				merchantID:
-					preCheckoutResponse?.cart?.items[0]?.product_info?.merchant_id,
+				merchantID: getFromStorage("merchantID"),
 				token: preCheckoutResponse?.token?.access_token,
 			}),
 		enabled:
 			!!deliveryMethod && deliveryMethod === "Pickup" && !!preCheckoutResponse,
 	});
-
-	console.log(data);
 
 	const deliveryInformationInitialValues = {
 		name: "",
@@ -88,7 +84,7 @@ const Payment = () => {
 			.required("Please provide an email"),
 		name: Yup.string().required("Please provide a name"),
 		phone: Yup.string()
-			.length(11, "Please provide a valid phone number")
+			.phone("NG", `Please provide a valid nigerian number`)
 			.required("Please provide a phone number"),
 		delivery_type: Yup.string()
 			.required("Please provide a delivery method")
@@ -296,6 +292,12 @@ const Payment = () => {
 														Pickup Address
 													</h4>
 												</div>
+												<div className={styles.pickup}>
+													<p>{pickupAddess?.pickup_address?.name}</p>
+													<p>{pickupAddess?.pickup_address?.phone}</p>
+													<p>{pickupAddess?.pickup_address?.email}</p>
+													<p>{pickupAddess?.pickup_address?.address}</p>
+												</div>
 												<button
 													type="submit"
 													className={styles.submit}
@@ -473,30 +475,34 @@ const Payment = () => {
 									</div>
 								</div>
 
-								<div
-									className={`d-flex justify-content-between align-items-center ${styles.bb} pt-5 pb-4 mb-5`}
-								>
-									<h4 className={styles.sectionHeader}>Delivery Address</h4>
-									<button
-										className={`${styles.link}`}
-										onClick={() => {
-											setCurrentStep("a");
-										}}
-									>
-										Edit
-									</button>
-								</div>
+								{!deliveryMethod === "Pickup" && (
+									<>
+										<div
+											className={`d-flex justify-content-between align-items-center ${styles.bb} pt-5 pb-4 mb-5`}
+										>
+											<h4 className={styles.sectionHeader}>Delivery Address</h4>
+											<button
+												className={`${styles.link}`}
+												onClick={() => {
+													setCurrentStep("a");
+												}}
+											>
+												Edit
+											</button>
+										</div>
 
-								<div className="mb-4">
-									<p className={`${styles.deliveryBody} ${styles.bb}`}>
-										{preCheckoutResponse?.address?.address},<br />
-										{preCheckoutResponse?.address?.city},<br />
-										{preCheckoutResponse?.address?.country},<br />
-										<strong>
-											Phone: ({preCheckoutResponse?.address?.phone})
-										</strong>
-									</p>
-								</div>
+										<div className="mb-4">
+											<p className={`${styles.deliveryBody} ${styles.bb}`}>
+												{preCheckoutResponse?.address?.address},<br />
+												{preCheckoutResponse?.address?.city},<br />
+												{preCheckoutResponse?.address?.country},<br />
+												<strong>
+													Phone: ({preCheckoutResponse?.address?.phone})
+												</strong>
+											</p>
+										</div>
+									</>
+								)}
 
 								<Link
 									to={placeOrderResponse?.paymentUrl || "/"}
