@@ -100,7 +100,7 @@ const Home = () => {
 							</div>
 							<div className="row">
 								{data?.products?.data?.map((product, index) => (
-									<div className="col-lg-3 col-md-6 col-sm-1" key={index}>
+									<div className="col-lg-3 col-md-6 col-sm-6" key={index}>
 										<ProductCard image={Product} product={product} />
 									</div>
 								))}
