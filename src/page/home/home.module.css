@@ -193,14 +193,6 @@
     .product-feature-icon {
         width: 14px;
     }
-
-    .serach-container{
-        width: 100%;
-      }
-  
-      .search-input {
-          width: 180px;
-      }
 }
 
 @media screen and (max-width: 425px) {
@@ -250,4 +242,3 @@
         width: 180px;
     }
 }
-
