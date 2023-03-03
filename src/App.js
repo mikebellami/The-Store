@@ -23,7 +23,7 @@ import {
 function App() {
 	return (
 		<CartProvider>
-			<Router basename="The-Store">
+			<Router basename="/">
 				<Routes>
 					<Route element={<AppWrapper />}>
 						<Route path="/:merchantID" exact element={<Home />} />
