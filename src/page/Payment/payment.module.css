@@ -66,6 +66,19 @@
     border-bottom: 1px solid #E3E3E3;
 }
 
+.pickup {
+    margin-bottom: 20px;
+}
+
+.pickup p {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0.4px;
+    margin: 0;
+}
+
 .feesContainer {
     width: 100%;
     background: #f7f7f7;

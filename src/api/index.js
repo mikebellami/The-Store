@@ -36,8 +36,16 @@ export const placeOrder = ({ data, token }) => {
 	return api.post("/order/placeOrder", data, config);
 };
 
-export const getStorePickupAddress = () =>
-	api.get("/userAccount/getPickupAddress");
+export const getStorePickupAddress = ({ token, merchantID }) => {
+	return api.get("/precheckout/getMerchantPickupAddress", {
+		params: {
+			merchantID,
+		},
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+};
 
 export const verifyToken = ({ reference, token }) =>
 	api.get("/order/payment/callback", {

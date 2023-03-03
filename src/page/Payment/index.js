@@ -16,11 +16,12 @@ import {
 } from "../../component";
 import styles from "./payment.module.css";
 import * as Yup from "yup";
+import "yup-phone-lite";
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/cartContext";
 import { getStorePickupAddress, placeOrder, preCheckout } from "../../api";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { setToStorage } from "../../constants";
+import { getFromStorage, setToStorage } from "../../constants";
 
 const Payment = () => {
 	const { state, price } = useCartContext();
@@ -34,7 +35,6 @@ const Payment = () => {
 		preCheckout,
 		{
 			onSuccess: (data) => {
-				console.log(data);
 				setPreCheckoutResponse(data);
 				setCurrentStep("b");
 			},
@@ -45,18 +45,22 @@ const Payment = () => {
 		placeOrder,
 		{
 			onSuccess: (data) => {
-				console.log(data);
+				setToStorage("merchantID", data?.order?.merchant_id);
 				setPlaceOrderResponse(data);
 				setCurrentStep("c");
 			},
 		}
 	);
 
-	const { data } = useQuery({
+	const { data: pickupAddess } = useQuery({
 		queryKey: ["pickupAddress"],
-		queryFn: getStorePickupAddress,
-		enabled: !!deliveryMethod && deliveryMethod === "Pickup",
-		onSuccess: (data) => console.log(data),
+		queryFn: () =>
+			getStorePickupAddress({
+				merchantID: getFromStorage("merchantID"),
+				token: preCheckoutResponse?.token?.access_token,
+			}),
+		enabled:
+			!!deliveryMethod && deliveryMethod === "Pickup" && !!preCheckoutResponse,
 	});
 
 	const deliveryInformationInitialValues = {
@@ -80,7 +84,7 @@ const Payment = () => {
 			.required("Please provide an email"),
 		name: Yup.string().required("Please provide a name"),
 		phone: Yup.string()
-			.length(11, "Please provide a valid phone number")
+			.phone("NG", `Please provide a valid nigerian number`)
 			.required("Please provide a phone number"),
 		delivery_type: Yup.string()
 			.required("Please provide a delivery method")
@@ -255,94 +259,145 @@ const Payment = () => {
 								</AccordionItemButton>
 							</AccordionItemHeading>
 							<AccordionItemPanel>
-								<Formik
-									initialValues={deliveryTypeInitialValues}
-									validationSchema={deliveryTypeValidationSchema}
-									onSubmit={(values) => {
-										const data = {
-											customerID: preCheckoutResponse?.cart?.customerID,
-											cart_id: preCheckoutResponse?.cart?.cart_id,
-											currency_id: 1,
-											address_id: preCheckoutResponse?.address?.address_id,
-											paymentProvider: "seerbit",
-											courier_id: values.courier,
-											request_token:
-												preCheckoutResponse?.shipmentRates?.ratesDetails
-													?.request_token,
-											estimated_days: selectedCourier?.delivery_eta,
-											charge_amount:
-												price +
-												parseFloat(
-													preCheckoutResponse?.cart?.pepperestfees || 0
-												) +
-												parseFloat(selectedCourier?.total || 0),
-											service_code: selectedCourier?.service_code,
-											charge_currency: "NGN",
-										};
+								{deliveryMethod === "Pickup" ? (
+									<Formik
+										onSubmit={() => {
+											const data = {
+												customerID: preCheckoutResponse?.cart?.customerID,
+												cart_id: preCheckoutResponse?.cart?.cart_id,
+												currency_id: 1,
+												paymentProvider: "seerbit",
+												charge_currency: "NGN",
+											};
 
-										const token = preCheckoutResponse?.token?.access_token;
-										setToStorage("token", token);
-										setToStorage(
-											"info",
-											JSON.stringify({
-												pepperestfees: preCheckoutResponse?.cart?.pepperestfees,
-												courierprice: selectedCourier?.total,
-												address: preCheckoutResponse?.address,
-											})
-										);
+											const token = preCheckoutResponse?.token?.access_token;
+											setToStorage("token", token);
+											setToStorage(
+												"info",
+												JSON.stringify({
+													pepperestfees:
+														preCheckoutResponse?.cart?.pepperestfees,
+													courierprice: selectedCourier?.total,
+													address: preCheckoutResponse?.address,
+												})
+											);
 
-										placeOrderFN({ data, token });
-									}}
-								>
-									{({ handleSubmit, handleChange }) => (
-										<form onSubmit={handleSubmit}>
-											<div>
-												<h4 className={styles.sectionHeader}>
-													Select Delivery Company
-												</h4>
+											placeOrderFN({ data, token });
+										}}
+									>
+										{({ handleSubmit }) => (
+											<form onSubmit={handleSubmit}>
+												<div>
+													<h4 className={styles.sectionHeader}>
+														Pickup Address
+													</h4>
+												</div>
+												<div className={styles.pickup}>
+													<p>{pickupAddess?.pickup_address?.name}</p>
+													<p>{pickupAddess?.pickup_address?.phone}</p>
+													<p>{pickupAddess?.pickup_address?.email}</p>
+													<p>{pickupAddess?.pickup_address?.address}</p>
+												</div>
+												<button
+													type="submit"
+													className={styles.submit}
+													disabled={placeOrderLoading}
+												>
+													Next: Confirmation
+												</button>
+											</form>
+										)}
+									</Formik>
+								) : (
+									<Formik
+										initialValues={deliveryTypeInitialValues}
+										validationSchema={deliveryTypeValidationSchema}
+										onSubmit={(values) => {
+											const data = {
+												customerID: preCheckoutResponse?.cart?.customerID,
+												cart_id: preCheckoutResponse?.cart?.cart_id,
+												currency_id: 1,
+												address_id: preCheckoutResponse?.address?.address_id,
+												paymentProvider: "seerbit",
+												courier_id: values.courier,
+												request_token:
+													preCheckoutResponse?.shipmentRates?.ratesDetails
+														?.request_token,
+												estimated_days: selectedCourier?.delivery_eta,
+												charge_amount: parseFloat(selectedCourier?.total || 0),
+												service_code: selectedCourier?.service_code,
+												charge_currency: "NGN",
+											};
 
-												{preCheckoutResponse?.shipmentRates?.ratesDetails?.couriers?.map(
-													(courier, index) => (
-														<CustomRadio
-															key={index}
-															title={
-																<div className="w-100">
-																	<p className="m-0">{courier.courier_name}</p>
-																	<p className="m-0">{courier.delivery_eta}</p>
-																	<p className="m-0">
-																		{new Intl.NumberFormat("en-GB", {
-																			style: "currency",
-																			currency: courier.currency,
-																		}).format(parseInt(courier.total))}
-																	</p>
-																</div>
-															}
-															name="courier"
-															id={courier.courier_id}
-															value={courier.courier_id}
-															onChange={(event) => {
-																handleChange(event);
-																setSelectedCourier(courier);
-															}}
-														/>
-													)
-												)}
-												<ErrorMessage
-													component="div"
-													className="text-danger"
-													name="courier"
-												/>
-											</div>
-											<button
-												type="submit"
-												className={styles.submit}
-												disabled={placeOrderLoading}
-											>
-												Next: Confirmation
-											</button>
-										</form>
-									)}
-								</Formik>
+											const token = preCheckoutResponse?.token?.access_token;
+											setToStorage("token", token);
+											setToStorage(
+												"info",
+												JSON.stringify({
+													pepperestfees:
+														preCheckoutResponse?.cart?.pepperestfees,
+													courierprice: selectedCourier?.total,
+													address: preCheckoutResponse?.address,
+												})
+											);
+
+											placeOrderFN({ data, token });
+										}}
+									>
+										{({ handleSubmit, handleChange }) => (
+											<form onSubmit={handleSubmit}>
+												<div>
+													<h4 className={styles.sectionHeader}>
+														Select Delivery Company
+													</h4>
+
+													{preCheckoutResponse?.shipmentRates?.ratesDetails?.couriers?.map(
+														(courier, index) => (
+															<CustomRadio
+																key={index}
+																title={
+																	<div className="w-100">
+																		<p className="m-0">
+																			{courier.courier_name}
+																		</p>
+																		<p className="m-0">
+																			{courier.delivery_eta}
+																		</p>
+																		<p className="m-0">
+																			{new Intl.NumberFormat("en-GB", {
+																				style: "currency",
+																				currency: courier.currency,
+																			}).format(parseInt(courier.total))}
+																		</p>
+																	</div>
+																}
+																name="courier"
+																id={courier.courier_id}
+																value={courier.courier_id}
+																onChange={(event) => {
+																	handleChange(event);
+																	setSelectedCourier(courier);
+																}}
+															/>
+														)
+													)}
+													<ErrorMessage
+														component="div"
+														className="text-danger"
+														name="courier"
+													/>
+												</div>
+												<button
+													type="submit"
+													className={styles.submit}
+													disabled={placeOrderLoading}
+												>
+													Next: Confirmation
+												</button>
+											</form>
+										)}
+									</Formik>
+								)}
 							</AccordionItemPanel>
 						</AccordionItem>
 						<AccordionItem
@@ -420,30 +475,34 @@ const Payment = () => {
 									</div>
 								</div>
 
-								<div
-									className={`d-flex justify-content-between align-items-center ${styles.bb} pt-5 pb-4 mb-5`}
-								>
-									<h4 className={styles.sectionHeader}>Delivery Address</h4>
-									<button
-										className={`${styles.link}`}
-										onClick={() => {
-											setCurrentStep("a");
-										}}
-									>
-										Edit
-									</button>
-								</div>
+								{!deliveryMethod === "Pickup" && (
+									<>
+										<div
+											className={`d-flex justify-content-between align-items-center ${styles.bb} pt-5 pb-4 mb-5`}
+										>
+											<h4 className={styles.sectionHeader}>Delivery Address</h4>
+											<button
+												className={`${styles.link}`}
+												onClick={() => {
+													setCurrentStep("a");
+												}}
+											>
+												Edit
+											</button>
+										</div>
 
-								<div className="mb-4">
-									<p className={`${styles.deliveryBody} ${styles.bb}`}>
-										{preCheckoutResponse?.address?.address},<br />
-										{preCheckoutResponse?.address?.city},<br />
-										{preCheckoutResponse?.address?.country},<br />
-										<strong>
-											Phone: ({preCheckoutResponse?.address?.phone})
-										</strong>
-									</p>
-								</div>
+										<div className="mb-4">
+											<p className={`${styles.deliveryBody} ${styles.bb}`}>
+												{preCheckoutResponse?.address?.address},<br />
+												{preCheckoutResponse?.address?.city},<br />
+												{preCheckoutResponse?.address?.country},<br />
+												<strong>
+													Phone: ({preCheckoutResponse?.address?.phone})
+												</strong>
+											</p>
+										</div>
+									</>
+								)}
 
 								<Link
 									to={placeOrderResponse?.paymentUrl || "/"}
