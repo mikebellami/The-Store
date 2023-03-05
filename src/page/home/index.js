@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./home.module.css";
 import { Bg, Product } from "../../assets";
 import { IoSearchOutline } from "react-icons/io5";
@@ -15,6 +15,8 @@ const Home = () => {
 	const { merchantID } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
 	const page = searchParams.get("page");
+	const [dropdownIsOpen, setDropdownIsOpen] = useState(false)
+	const toggleDropdown = () => setDropdownIsOpen(!dropdownIsOpen);
 
 	const { data, isLoading } = useQuery({
 		queryKey: ["mechart", merchantID, page],
@@ -90,16 +92,29 @@ const Home = () => {
 						<div className={styles["products-container"]}>
 							<div className={styles["products-header"]}>
 								<h2 className={styles["products-title"]}>Explore Products</h2>
-								<h2 className={styles["product-feature"]}>
-									Featured
-									<span>
-										<SlArrowDown className="ml-2 product-feature-icon" />
-									</span>
-								</h2>
+								<div className={styles.featuredProductContainer}>
+									<h2 className={styles.featuredProduct} onClick={toggleDropdown}>
+										Featured
+										<span>
+											<SlArrowDown className="ml-2 featuredProduct-icon" />
+										</span>
+									</h2>
+									<div className={`${styles.featuredDropdown} ${dropdownIsOpen && 'd-flex'}`}>
+										<ul>
+											<li>Featured</li>
+											<li>New Arrivals</li>
+											<li>Price: High to Low</li>
+											<li>Price: Low to High </li>
+											<li>Name: A - Z </li>
+											<li>Name: Z - A </li>
+										</ul>
+									
+									</div>
+								</div>
 							</div>
 							<div className="row">
 								{data?.products?.data?.map((product, index) => (
-									<div className="col-lg-3 col-md-6 col-sm-1" key={index}>
+									<div className="col-lg-3 col-md-6 col-sm-6" key={index}>
 										<ProductCard image={Product} product={product} />
 									</div>
 								))}
