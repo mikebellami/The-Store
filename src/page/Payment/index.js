@@ -84,7 +84,8 @@ const Payment = () => {
 			.required("Please provide an email"),
 		name: Yup.string().required("Please provide a name"),
 		phone: Yup.string()
-			.phone("NG", `Please provide a valid nigerian number`)
+			.length(11, "Please provide a valid nigerian phone number")
+			.phone("NG", `Please provide a valid nigerian phone number`)
 			.required("Please provide a phone number"),
 		delivery_type: Yup.string()
 			.required("Please provide a delivery method")
@@ -149,7 +150,7 @@ const Payment = () => {
 										preCheckOutFN(JSON.stringify(data));
 									}}
 								>
-									{({ values, handleSubmit, handleChange }) => (
+									{({ values, handleSubmit, handleChange, setFieldValue }) => (
 										<form onSubmit={handleSubmit}>
 											<div>
 												<h4 className={styles.sectionHeader}>Contact</h4>
@@ -167,7 +168,12 @@ const Payment = () => {
 												/>
 												<CustomInput
 													title="Phone Number"
-													onChange={handleChange}
+													onChange={(event) =>
+														setFieldValue(
+															"phone",
+															event.target.value.replace(/\D/g, "")
+														)
+													}
 													name="phone"
 													value={values.phone}
 												/>
