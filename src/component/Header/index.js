@@ -15,7 +15,7 @@ const Header = () => {
 
 	const { data } = useQuery({
 		queryKey: ["mechart", storeID],
-		queryFn: () => getMerchant(storeID),
+		queryFn: () => getMerchant({ id: storeID }),
 	});
 
 	const homeMatch = useMatch("/:id");

@@ -10,18 +10,25 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
 import { setToStorage } from "../../constants";
+import { DebounceInput } from "react-debounce-input";
 
 const Home = () => {
 	const { merchantID } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
 	const page = searchParams.get("page");
-	const [dropdownIsOpen, setDropdownIsOpen] = useState(false)
-	const toggleDropdown = () => setDropdownIsOpen(!dropdownIsOpen);
+	const sortBy = searchParams.get("sortBy");
+	const direction = searchParams.get("direction");
+
+	const [productList, setProductList] = useState([]);
+	const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+	const [keyword, setKeyword] = useState("");
 
 	const { data, isLoading } = useQuery({
-		queryKey: ["mechart", merchantID, page],
-		queryFn: () => getMerchant(merchantID, page),
+		queryKey: ["mechart", merchantID, page, sortBy, direction, keyword],
+		queryFn: () =>
+			getMerchant({ id: merchantID, page, sortBy, direction, keyword }),
 		onSuccess: (data) => {
+			setProductList(data?.products?.data);
 			setToStorage("merchantID", data.merchantID);
 		},
 	});
@@ -33,9 +40,19 @@ const Home = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	const toggleDropdown = () => setDropdownIsOpen(!dropdownIsOpen);
+
 	const handlePageClick = (event) => {
 		searchParams.set("page", event.selected + 1);
 		setSearchParams(searchParams);
+	};
+
+	const handleSearchParam = (params) => {
+		Object.entries(params).forEach((entry) => {
+			const [key, value] = entry;
+			searchParams.set(key, value);
+			setSearchParams(searchParams);
+		});
 	};
 
 	return (
@@ -60,7 +77,7 @@ const Home = () => {
 					<div
 						className={styles["hero-img"]}
 						style={{ backgroundImage: `url(${Bg})` }}
-					></div>
+					/>
 					<img
 						className={styles["store-initails"]}
 						src={`https://ui-avatars.com/api/?name=${data?.businessname}`}
@@ -69,21 +86,21 @@ const Home = () => {
 					<div className="container">
 						<div className={styles["store-wrapper"]}>
 							<h1 className={styles["store-title"]}>{data?.businessname}</h1>
-							{/* <p className={styles["store-description"]}>
-						Welcome to my store, I sell bespoke perfumes at affordable prices.
-						<br />
-						Lorem ipsum dolor sit amet consectetur. Ullamcorper sodales tempus
-						et tortor risus dignissim tellus. Magna lobortis sapien sit est quis
-						sollicitudin.
-					</p> */}
 						</div>
 						<div className={styles["search-wrapper"]}>
 							<div className={styles["serach-container"]}>
 								<IoSearchOutline className={styles["search-icon"]} />
-								<input
+								<DebounceInput
+									debounceTimeout={500}
 									type="text"
 									className={styles["search-input"]}
 									placeholder="Search for products"
+									value={keyword}
+									onChange={(event) => {
+										setKeyword(event.target.value);
+										searchParams.set("page", 1);
+										setSearchParams(searchParams);
+									}}
 								/>
 								<button className={styles["search-btn"]}>Search </button>
 							</div>
@@ -93,27 +110,69 @@ const Home = () => {
 							<div className={styles["products-header"]}>
 								<h2 className={styles["products-title"]}>Explore Products</h2>
 								<div className={styles.featuredProductContainer}>
-									<h2 className={styles.featuredProduct} onClick={toggleDropdown}>
+									<h2
+										className={styles.featuredProduct}
+										onClick={toggleDropdown}
+									>
 										Featured
 										<span>
 											<SlArrowDown className="ml-2 featuredProduct-icon" />
 										</span>
 									</h2>
-									<div className={`${styles.featuredDropdown} ${dropdownIsOpen && 'd-flex'}`}>
+									<div
+										className={`${styles.featuredDropdown} ${
+											dropdownIsOpen && "d-flex"
+										}`}
+									>
 										<ul>
-											<li>Featured</li>
-											<li>New Arrivals</li>
-											<li>Price: High to Low</li>
-											<li>Price: Low to High </li>
-											<li>Name: A - Z </li>
-											<li>Name: Z - A </li>
+											{/* <li>Featured</li> */}
+											{/* <li>New Arrivals</li> */}
+											<li
+												onClick={() =>
+													handleSearchParam({
+														sortBy: "price",
+														direction: "DESC",
+													})
+												}
+											>
+												Price: High to Low
+											</li>
+											<li
+												onClick={() =>
+													handleSearchParam({
+														sortBy: "price",
+														direction: "ASC",
+													})
+												}
+											>
+												Price: Low to High{" "}
+											</li>
+											<li
+												onClick={() =>
+													handleSearchParam({
+														sortBy: "productname",
+														direction: "ASC",
+													})
+												}
+											>
+												Name: A - Z{" "}
+											</li>
+											<li
+												onClick={() =>
+													handleSearchParam({
+														sortBy: "productname",
+														direction: "DESC",
+													})
+												}
+											>
+												Name: Z - A{" "}
+											</li>
 										</ul>
-									
 									</div>
 								</div>
 							</div>
 							<div className="row">
-								{data?.products?.data?.map((product, index) => (
+								{productList?.map((product, index) => (
 									<div className="col-lg-3 col-md-6 col-sm-6" key={index}>
 										<ProductCard image={Product} product={product} />
 									</div>

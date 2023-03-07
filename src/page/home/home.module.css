@@ -84,7 +84,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width:70% ;
+    width: 50%;
 }
 
 .search-icon {
@@ -163,24 +163,25 @@
 
 .featuredProduct-icon {
     width: 16px;
-    
+
 }
 
 .widthFitContent {
     width: fit-content;
 }
-.featuredProductContainer{
+
+.featuredProductContainer {
     position: relative;
 }
-.featuredDropdown{
+
+.featuredDropdown {
     display: none;
     flex-direction: row;
     align-items: flex-start;
     padding: 22px 24px;
     gap: 10px;
     position: absolute;
-    width: 205px;
-    height: 266px;
+    width: 185px;
     background: #FFFFFF;
     border: 1px solid rgba(24, 25, 31, 0.15);
     box-shadow: 2px 6px 15px rgba(94, 96, 206, 0.09);
@@ -188,6 +189,7 @@
     z-index: 10;
     right: -6px;
 }
+
 .featuredDropdown ul {
     list-style-type: none;
 }
@@ -199,11 +201,12 @@
     line-height: 17px;
     color: #18191F;
     opacity: 0.7;
-    padding-bottom:24px ;
+    padding-block: 10px;
     cursor: pointer;
-    
+
 }
-.featuredDropdown ul li:hover{
+
+.featuredDropdown ul li:hover {
     text-decoration: none;
     color: var(--primary-color);
 }
@@ -219,6 +222,7 @@
         width: 140px;
         height: 140px;
     }
+
     .store-initails h1 {
         font-size: 54px;
     }
@@ -234,16 +238,18 @@
     .featuredProduct-icon {
         width: 14px;
     }
-    .serach-container{
+
+    .serach-container {
         width: 100%;
-      }
-  
-      .search-input {
-          width: 180px;
-      }
-      .featuredDropdown{
+    }
+
+    .search-input {
+        width: 180px;
+    }
+
+    .featuredDropdown {
         right: 0;
-      }
+    }
 }
 
 @media screen and (max-width: 425px) {
@@ -279,20 +285,15 @@
         gap: 10px;
     }
 
-    /* .search-wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid red;
-  } */
-    .serach-container{
-      width: 100%;
+    .serach-container {
+        width: 100%;
     }
 
     .search-input {
         width: 180px;
     }
-    .featuredDropdown{
+
+    .featuredDropdown {
         left: 0;
-      }
+    }
 }

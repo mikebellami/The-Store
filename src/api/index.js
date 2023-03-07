@@ -14,11 +14,20 @@ const api = axios.create({
 
 api.interceptors.response.use((response) => response.data, null);
 
-export const getMerchant = (id, page = 1) =>
+export const getMerchant = ({
+	id,
+	page = 1,
+	sortBy = "id",
+	direction = "ASC",
+	keyword = "",
+}) =>
 	api.get(`/product/merchantStore`, {
 		params: {
 			merchantCode: id,
 			page,
+			sortBy,
+			direction,
+			keyword,
 		},
 	});
 
