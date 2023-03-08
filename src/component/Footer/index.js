@@ -19,26 +19,26 @@ const Footer = () => {
 					<div className={`${styles.footer2} mb-2`}>
 						<ul className={styles.navLinks}>
 							<li className={styles.navlink} style={{ color: "#495057" }}>
-								<a href="#" className={styles.link}>
+								<Link to="#" className={styles.link}>
 									About
-								</a>
+								</Link>
 							</li>
 							<li className={styles.navlink} style={{ color: "#495057" }}>
-								<a href="#" className={styles.link}>
+								<Link to="#" className={styles.link}>
 									Contact
-								</a>
+								</Link>
 							</li>
 						</ul>
 						<div className={styles.socialIcons}>
-							<a target="_blank" href="https://web.facebook.com/peppa.io" rel="noreferrer">
+							<Link target="_blank" to="https://web.facebook.com/peppa.io" rel="noreferrer">
 							<FacebookIcon />
-							</a>
-							<a target="_blank" href="https://www.instagram.com/usepeppa/?igshid=YmMyMTA2M2Y" rel="noreferrer">
+							</Link>
+							<Link target="_blank" to="https://www.instagram.com/usepeppa/?igshid=YmMyMTA2M2Y" rel="noreferrer">
 							<InstagramIcon />
-							</a>
-							<a target="_blank" href="https://twitter.com/usepeppa" rel="noreferrer">
+							</Link>
+							<Link target="_blank" to="https://twitter.com/usepeppa" rel="noreferrer">
 							<TwitterIcon />
-							</a>
+							</Link>
 						</div>
 					</div>
 				) : (
@@ -66,14 +66,14 @@ const Footer = () => {
 						<p className={styles.copyright}>Copyright © 2023 Peppa.io </p>
 						<ul className={styles.navLinks}>
 							<li className={styles.navlink}>
-								<a href="#" className={styles.link}>
+								<Link to="#" className={styles.link}>
 									Privacy Policy
-								</a>
+								</Link>
 							</li>
 							<li className={styles.navlink}>
-								<a href="#" className={styles.link}>
+								<Link to="#" className={styles.link}>
 									Terms of Service
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</div>
