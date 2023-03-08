@@ -6,7 +6,7 @@ import {
 	FacebookIcon,
 	InstagramIcon,
 	ProfileIcon,
-	WhatsAppIcon,
+	TwitterIcon,
 } from "../../assets";
 import styles from "./footer.module.css";
 
@@ -30,9 +30,15 @@ const Footer = () => {
 							</li>
 						</ul>
 						<div className={styles.socialIcons}>
+							<a target="_blank" href="https://web.facebook.com/peppa.io" rel="noreferrer">
 							<FacebookIcon />
+							</a>
+							<a target="_blank" href="https://www.instagram.com/usepeppa/?igshid=YmMyMTA2M2Y" rel="noreferrer">
 							<InstagramIcon />
-							<WhatsAppIcon />
+							</a>
+							<a target="_blank" href="https://twitter.com/usepeppa" rel="noreferrer">
+							<TwitterIcon />
+							</a>
 						</div>
 					</div>
 				) : (

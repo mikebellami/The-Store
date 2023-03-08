@@ -29,7 +29,7 @@ const Home = () => {
 			getMerchant({ id: merchantID, page, sortBy, direction, keyword }),
 		onSuccess: (data) => {
 			setProductList(data?.products?.data);
-			setToStorage("merchantID", data.merchantID);
+			setToStorage("merchantID", data?.merchantID);
 		},
 	});
 
@@ -88,7 +88,7 @@ const Home = () => {
 							<h1 className={styles["store-title"]}>{data?.businessname}</h1>
 						</div>
 						<div className={styles["search-wrapper"]}>
-							<div className={styles["serach-container"]}>
+							<div className={styles["search-container"]}>
 								<IoSearchOutline className={styles["search-icon"]} />
 								<DebounceInput
 									debounceTimeout={500}
@@ -102,7 +102,7 @@ const Home = () => {
 										setSearchParams(searchParams);
 									}}
 								/>
-								<button className={styles["search-btn"]}>Search </button>
+								{/* <button className={styles["search-btn"]}>Search </button> */}
 							</div>
 						</div>
 
@@ -155,7 +155,7 @@ const Home = () => {
 													})
 												}
 											>
-												Name: A - Z{" "}
+												Name: A - Z
 											</li>
 											<li
 												onClick={() =>
@@ -165,7 +165,7 @@ const Home = () => {
 													})
 												}
 											>
-												Name: Z - A{" "}
+												Name: Z - A
 											</li>
 										</ul>
 									</div>
