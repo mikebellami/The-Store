@@ -6,7 +6,7 @@ import { useCartContext } from "../../context/cartContext";
 import { useQuery } from "@tanstack/react-query";
 import { verifyToken } from "../../api";
 import { Link, useSearchParams } from "react-router-dom";
-import { getFromStorage } from "../../constants";
+import { getFromStorage, setToStorage } from "../../constants";
 
 const Confirmation = () => {
 	const [searchParams] = useSearchParams();
@@ -28,6 +28,7 @@ const Confirmation = () => {
 	const returnHome = () => {
 		dispatch({ action: "CLEAR" });
 		localStorage.clear();
+		setToStorage("token", token);
 	};
 
 	return (

@@ -36,6 +36,7 @@ const Payment = () => {
 		{
 			onSuccess: (data) => {
 				setPreCheckoutResponse(data);
+				setToStorage("token", data?.token?.access_token);
 				setCurrentStep("b");
 			},
 		}

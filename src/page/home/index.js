@@ -14,19 +14,25 @@ import { DebounceInput } from "react-debounce-input";
 
 const Home = () => {
 	const { merchantID } = useParams();
-	const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
-	const page = searchParams.get("page");
-	const sortBy = searchParams.get("sortBy");
-	const direction = searchParams.get("direction");
+	const [searchParams, setSearchParams] = useSearchParams({ pg: 1 });
+	const pg = searchParams.get("pg");
+	const sb = searchParams.get("sb");
+	const d = searchParams.get("d");
 
 	const [productList, setProductList] = useState([]);
 	const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-	const [keyword, setKeyword] = useState("");
+	const [s, setKeyword] = useState("");
 
 	const { data, isLoading } = useQuery({
-		queryKey: ["mechart", merchantID, page, sortBy, direction, keyword],
+		queryKey: ["mechart", merchantID, pg, sb, d, s],
 		queryFn: () =>
-			getMerchant({ id: merchantID, page, sortBy, direction, keyword }),
+			getMerchant({
+				id: merchantID,
+				page: pg,
+				sortBy: sb,
+				direction: d,
+				keyword: s,
+			}),
 		onSuccess: (data) => {
 			setProductList(data?.products?.data);
 			setToStorage("merchantID", data?.merchantID);
@@ -43,7 +49,7 @@ const Home = () => {
 	const toggleDropdown = () => setDropdownIsOpen(!dropdownIsOpen);
 
 	const handlePageClick = (event) => {
-		searchParams.set("page", event.selected + 1);
+		searchParams.set("pg", event.selected + 1);
 		setSearchParams(searchParams);
 	};
 
@@ -95,10 +101,10 @@ const Home = () => {
 									type="text"
 									className={styles["search-input"]}
 									placeholder="Search for products"
-									value={keyword}
+									value={s}
 									onChange={(event) => {
 										setKeyword(event.target.value);
-										searchParams.set("page", 1);
+										searchParams.set("pg", 1);
 										setSearchParams(searchParams);
 									}}
 								/>
@@ -130,8 +136,8 @@ const Home = () => {
 											<li
 												onClick={() =>
 													handleSearchParam({
-														sortBy: "price",
-														direction: "DESC",
+														sb: "price",
+														d: "DESC",
 													})
 												}
 											>
@@ -140,8 +146,8 @@ const Home = () => {
 											<li
 												onClick={() =>
 													handleSearchParam({
-														sortBy: "price",
-														direction: "ASC",
+														sb: "price",
+														d: "ASC",
 													})
 												}
 											>
@@ -150,8 +156,8 @@ const Home = () => {
 											<li
 												onClick={() =>
 													handleSearchParam({
-														sortBy: "productname",
-														direction: "ASC",
+														sb: "productname",
+														d: "ASC",
 													})
 												}
 											>
@@ -160,8 +166,8 @@ const Home = () => {
 											<li
 												onClick={() =>
 													handleSearchParam({
-														sortBy: "productname",
-														direction: "DESC",
+														sb: "productname",
+														d: "DESC",
 													})
 												}
 											>
@@ -194,7 +200,7 @@ const Home = () => {
 								previousClassName="page-item"
 								nextLinkClassName="page-link"
 								previousLinkClassName="page-link"
-								forcePage={parseInt(page) - 1}
+								forcePage={parseInt(pg) - 1}
 							/>
 						</div>
 					</div>
