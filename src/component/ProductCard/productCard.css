@@ -72,3 +72,6 @@
     opacity: 1;
     z-index: 1;
 }
+.product-card:hover .product-name, .product-card:hover  .product-price {
+    color: var(--primary-color);
+}

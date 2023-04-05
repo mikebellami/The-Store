@@ -50,3 +50,35 @@
     margin-top: 25px;
     width: 100%;
 }
+
+.cartEmpty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 30px 0;
+    height: calc(70dvh - 100px);
+}
+.cartEmpty h4{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.2rem;
+    line-height: 3.4rem;
+    letter-spacing: 0.4px;
+    color: #495057;
+}
+.cartEmpty p{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    letter-spacing: 0.4px;
+}
+
+.svgIcon svg {
+    width: 70px;
+    height: 70px;
+}
+.svgIcon{
+    margin-bottom: 20px;
+}

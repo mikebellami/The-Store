@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { ShoppingCartItem } from "../../component";
 import { useCartContext } from "../../context/cartContext";
 import styles from "./cart.module.css";
+import { NoItemIcon } from "../../assets";
 
 const Cart = () => {
 	const { state, price } = useCartContext();
@@ -53,9 +54,16 @@ const Cart = () => {
 					</div>
 				</div>
 			) : (
-				<div className="col-12 d-flex align-items-center justify-content-center mt-5">
-					<h1>Nothing in the cart</h1>
+				<>
+				
+				<div className={styles.cartEmpty}>
+					<div  className={styles.svgIcon}>
+					<NoItemIcon />
+					</div>
+					<h4>Your cart is empty!</h4>
+					<p>You have not added any item to your cart.</p>
 				</div>
+				</>
 			)}
 		</div>
 	);

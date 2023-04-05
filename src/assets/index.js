@@ -8,6 +8,7 @@ import { ReactComponent as ProfileIcon } from "./img/svg/profile.svg";
 import { ReactComponent as WhatsAppIcon } from "./img/svg/whatsapp.svg";
 import { ReactComponent as TwitterIcon } from "./img/svg/twitter.svg";
 import { ReactComponent as VisaIcon } from "./img/svg/visa.svg";
+import { ReactComponent as NoItemIcon } from "./img/svg/no-item.svg";
 import Product from "./img/product.png";
 import Product2 from "./img/product2.png";
 
@@ -23,5 +24,6 @@ export {
 	ProfileIcon,
 	WhatsAppIcon,
 	VisaIcon,
-	Avatar
+	Avatar,
+	NoItemIcon
 };
