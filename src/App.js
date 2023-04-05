@@ -10,15 +10,8 @@ import "./App.css";
 import { CartIcon, Footer, Header } from "./component";
 import { getFromStorage } from "./constants";
 import CartProvider, { useCartContext } from "./context/cartContext";
-import {
-	Home,
-	Product,
-	Confirmation,
-	Account,
-	Cart,
-	Payment,
-	Tracker,
-} from "./page";
+import { Account, Cart, Confirmation, Home, Payment, Product, Tracker } from "./page";
+
 
 function App() {
 	return (
